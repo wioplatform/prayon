@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff8fc">
+  <title>PRAY ON 관리자</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:#fff8fc;color:#252329;
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Segoe UI",sans-serif;
+    }
+    .wrap{width:min(100% - 28px,920px);margin:0 auto;padding:30px 0 70px}
+    header{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}
+    .brand{font-weight:950;font-size:25px;letter-spacing:-1px}
+    .home{color:#8b6b7f;text-decoration:none;font-size:13px}
+    .panel{
+      background:white;border:1px solid #f1d5e5;border-radius:28px;padding:26px;
+      box-shadow:0 18px 48px rgba(80,45,68,.08);margin-bottom:22px;
+    }
+    h1,h2{margin:0 0 10px;letter-spacing:-1px}
+    p{color:#77747d;line-height:1.7}
+    label{display:block;font-weight:850;margin:17px 0 8px}
+    input{
+      width:100%;padding:15px 16px;border:1px solid #e5dbe1;border-radius:15px;
+      background:#fbfafb;font:inherit;outline:none;
+    }
+    input:focus{border-color:#df83b6;box-shadow:0 0 0 4px #f8dbea}
+    button{
+      border:0;border-radius:15px;padding:14px 17px;font:inherit;font-weight:900;cursor:pointer;
+    }
+    .primary{background:#d96fa9;color:white;width:100%;margin-top:18px}
+    .secondary{background:#f7e5ef;color:#5f3d51}
+    .danger{background:#fff0f1;color:#b94353}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .hidden{display:none!important}
+    .status{min-height:22px;margin-top:12px;font-size:13px;font-weight:800;color:#b94353}
+    .list{display:grid;gap:14px;margin-top:20px}
+    .item{
+      border:1px solid #eee4ea;border-radius:20px;padding:18px;background:#fff;
+      display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start;
+    }
+    .content{white-space:pre-wrap;line-height:1.75;font-size:15px}
+    .meta{color:#9b98a0;font-size:12px;margin-top:9px}
+    .empty{text-align:center;padding:34px;color:#96939b}
+    @media(max-width:560px){
+      .item{grid-template-columns:1fr}
+      .danger{width:100%}
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <div class="brand">PRAY ON · ADMIN</div>
+      <a class="home" href="index.html">사용자 페이지로</a>
+    </header>
+
+    <section class="panel" id="loginPanel">
+      <h1>관리자 로그인</h1>
+      <p>Supabase Authentication에 등록한 관리자 이메일과 비밀번호를 입력하세요.</p>
+      <form id="loginForm">
+        <label for="email">이메일</label>
+        <input id="email" type="email" autocomplete="username" required>
+        <label for="password">비밀번호</label>
+        <input id="password" type="password" autocomplete="current-password" required>
+        <button class="primary" type="submit">로그인</button>
+      </form>
+      <div class="status" id="loginStatus"></div>
+    </section>
+
+    <section class="panel hidden" id="adminPanel">
+      <div class="toolbar">
+        <div>
+          <h2>익명 기도함</h2>
+          <p id="countText">기도제목을 불러오는 중입니다.</p>
+        </div>
+        <div>
+          <button class="secondary" id="refreshBtn" type="button">새로고침</button>
+          <button class="secondary" id="logoutBtn" type="button">로그아웃</button>
+        </div>
+      </div>
+      <div class="status" id="adminStatus"></div>
+      <div class="list" id="prayerList"></div>
+    </section>
+  </main>
+
+<script>
+(function(){
+  const cfg = window.PRAYON_SUPABASE || {};
+  const loginPanel = document.getElementById("loginPanel");
+  const adminPanel = document.getElementById("adminPanel");
+  const loginStatus = document.getElementById("loginStatus");
+  const adminStatus = document.getElementById("adminStatus");
+  const prayerList = document.getElementById("prayerList");
+  const countText = document.getElementById("countText");
+
+  if (!cfg.url || !cfg.publishableKey || cfg.publishableKey.includes("YOUR_")) {
+    loginStatus.textContent = "config.js에 Project URL과 Publishable key를 먼저 입력해 주세요.";
+    return;
+  }
+  const client = window.supabase.createClient(cfg.url, cfg.publishableKey);
+
+  function showLogin(message){
+    loginPanel.classList.remove("hidden");
+    adminPanel.classList.add("hidden");
+    loginStatus.textContent = message || "";
+  }
+
+  async function verifyAdmin(){
+    const { data: sessionData } = await client.auth.getSession();
+    if (!sessionData.session) {
+      showLogin("");
+      return false;
+    }
+
+    const { data, error } = await client.rpc("is_admin");
+    if (error || data !== true) {
+      await client.auth.signOut();
+      showLogin("관리자 권한이 없는 계정입니다.");
+      return false;
+    }
+
+    loginPanel.classList.add("hidden");
+    adminPanel.classList.remove("hidden");
+    return true;
+  }
+
+  function formatDate(value){
+    try {
+      return new Intl.DateTimeFormat("ko-KR", {
+        dateStyle:"medium", timeStyle:"short"
+      }).format(new Date(value));
+    } catch(e) { return value || ""; }
+  }
+
+  async function loadPrayers(){
+    adminStatus.textContent = "";
+    prayerList.innerHTML = '<div class="empty">불러오는 중…</div>';
+
+    const { data, error } = await client
+      .from("anonymous_prayers")
+      .select("id,content,created_at")
+      .order("created_at", { ascending:false });
+
+    if (error) {
+      prayerList.innerHTML = "";
+      adminStatus.textContent = "기도제목을 불러오지 못했습니다. 관리자 권한과 RLS 정책을 확인해 주세요.";
+      console.error(error);
+      return;
+    }
+
+    countText.textContent = `총 ${data.length}개의 기도제목`;
+    prayerList.innerHTML = "";
+
+    if (!data.length) {
+      prayerList.innerHTML = '<div class="empty">아직 등록된 기도제목이 없습니다.</div>';
+      return;
+    }
+
+    data.forEach(row => {
+      const item = document.createElement("article");
+      item.className = "item";
+
+      const body = document.createElement("div");
+      const content = document.createElement("div");
+      content.className = "content";
+      content.textContent = row.content;
+
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.textContent = formatDate(row.created_at);
+
+      body.append(content, meta);
+
+      const del = document.createElement("button");
+      del.className = "danger";
+      del.type = "button";
+      del.textContent = "삭제";
+      del.addEventListener("click", async function(){
+        if (!confirm("이 익명 기도제목을 삭제할까요? 삭제 후 복구할 수 없습니다.")) return;
+        del.disabled = true;
+        const { error } = await client
+          .from("anonymous_prayers")
+          .delete()
+          .eq("id", row.id);
+
+        if (error) {
+          adminStatus.textContent = "삭제하지 못했습니다.";
+          del.disabled = false;
+          console.error(error);
+          return;
+        }
+        item.remove();
+        await loadPrayers();
+      });
+
+      item.append(body, del);
+      prayerList.append(item);
+    });
+  }
+
+  document.getElementById("loginForm").addEventListener("submit", async function(e){
+    e.preventDefault();
+    loginStatus.textContent = "로그인 중…";
+
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    const { error } = await client.auth.signInWithPassword({ email, password });
+
+    if (error) {
+      loginStatus.textContent = "이메일 또는 비밀번호를 확인해 주세요.";
+      return;
+    }
+
+    if (await verifyAdmin()) await loadPrayers();
+  });
+
+  document.getElementById("refreshBtn").addEventListener("click", loadPrayers);
+  document.getElementById("logoutBtn").addEventListener("click", async function(){
+    await client.auth.signOut();
+    showLogin("");
+  });
+
+  verifyAdmin().then(ok => { if (ok) loadPrayers(); });
+})();
+</script>
+</body>
+</html>

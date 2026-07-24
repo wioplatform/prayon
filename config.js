@@ -1,4 +1,4 @@
 window.PRAYON_SUPABASE = {
-  url: "YOUR_SUPABASE_PROJECT_URL",
-  publishableKey: "YOUR_SUPABASE_PUBLISHABLE_KEY"
+  url: "https://nafzocfipamgiizqymez.supabase.co",
+  publishableKey: "sb_publishable_Cds0oisLSdDNw8miW6c8cA_IuI5dbbV"
 };
