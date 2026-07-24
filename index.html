@@ -473,40 +473,64 @@
     }
 
   
-    /* PRAY ON v7 */
-    .brand-logo-image{
-      width:43px;height:43px;display:block;flex:0 0 43px;border-radius:50%;
-      filter:drop-shadow(0 8px 16px rgba(88,42,70,.15));
+    /* PRAY ON v8 */
+    .image-first-section{
+      margin:0 0 var(--section-gap);
     }
-    .brand-logo-image img{width:100%;height:100%;display:block;object-fit:contain}
-    .smile-badge{width:43px;height:43px;flex:0 0 43px}
-    .smile-eye{top:11px;width:5px;height:8px}
+    .hero-prayer-image{
+      margin-top:0;
+      border-radius:32px;
+      overflow:hidden;
+      background:#f8e6ef;
+      border:1px solid rgba(247,167,216,.38);
+      box-shadow:0 22px 58px rgba(70,45,62,.12);
+    }
+    .hero-prayer-image img{
+      display:block;width:100%;height:auto;object-fit:contain;background:#f8e6ef;
+    }
+    .brand-symbols{display:flex;align-items:center;gap:7px}
+    .brand-copy{display:flex;flex-direction:column;gap:2px;line-height:1}
+    .brand-copy strong{font-size:24px;letter-spacing:-1px}
+    .brand-copy small{font-size:11px;font-weight:750;color:var(--muted)}
+    .tower-spark{
+      position:absolute;right:0;top:-8px;z-index:4;
+      font-size:15px;color:#fff3a3;
+      text-shadow:0 0 8px rgba(255,240,140,.95),0 0 14px #fff;
+    }
+    .smile-badge{
+      border:2px solid rgba(42,28,39,.82);
+      background:linear-gradient(145deg,#ffd0ea,#f39acb);
+      box-shadow:0 12px 28px var(--accent-soft),inset 0 0 0 2px rgba(255,255,255,.24);
+    }
+    .smile-eye{
+      position:absolute;top:10px;width:5px;height:8px;border-radius:999px;background:#30202d;
+    }
     .smile-eye-left{left:11px}
     .smile-eye-right{right:11px}
     .smile-mouth{
-      bottom:5px;width:27px;height:17px;
-      border-bottom-width:4px;border-radius:0 0 30px 30px;
+      position:absolute;left:50%;bottom:4px;width:29px;height:18px;
+      transform:translateX(-50%);
+      border-bottom:4px solid #30202d;border-radius:0 0 30px 30px;
     }
     .field-label{
       display:block;margin:21px 2px 9px;font-size:15px;font-weight:950;color:#45464d
     }
     .journal-input{min-height:112px}
     .save-status{
-      min-height:22px;margin:12px 3px 0;color:var(--accent-deep);
-      font-size:13px;font-weight:800;line-height:1.5
+      min-height:22px;margin:12px 3px 0;font-size:13px;font-weight:800;line-height:1.5
     }
-    .save-status.error{color:#b54457}
     .save-status.success{color:#427d5a}
     @media(max-width:470px){
-      .brand-logo-image,.smile-badge{width:37px;height:37px;flex-basis:37px}
+      .brand-symbols{gap:5px}
+      .brand-copy strong{font-size:20px}
+      .brand-copy small{font-size:9px}
       .smile-eye{top:9px;width:4px;height:7px}
       .smile-eye-left{left:9px}.smile-eye-right{right:9px}
-      .smile-mouth{width:24px;height:15px;bottom:4px}
+      .smile-mouth{width:25px;height:15px;bottom:4px}
+      .hero-prayer-image{border-radius:25px}
     }
 
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="config.js"></script>
 </head>
 <body>
 <main class="app">
@@ -514,7 +538,14 @@
     <header class="topbar">
       <div class="brand">
         <span class="brand-symbols" aria-label="PRAY ON 망대와 스마일 로고">
-          <span class="brand-logo-image"><img src="assets/tower_logo.png" alt="망대 로고"></span>
+          <span class="brand-badge tower-badge">
+            <span class="tower-spark">✦</span>
+            <span class="tower-light"></span>
+            <span class="tower-roof"></span>
+            <span class="tower-body"></span>
+            <span class="tower-window"></span>
+            <span class="tower-base"></span>
+          </span>
           <span class="brand-badge smile-badge" aria-hidden="true">
             <span class="smile-eye smile-eye-left"></span>
             <span class="smile-eye smile-eye-right"></span>
@@ -532,38 +563,11 @@
         <button class="swatch" data-color="#f7a7d8" data-deep="#de72b2" style="background:#f7a7d8"></button>
       </div>
     </header>
-
-    <section class="section">
-      <h2>오늘의 기도 카드</h2>
-      <p class="sub">오늘의 주제를 먼저 기억하고, 이어지는 이미지 기도카드로 주일 1부 강단 말씀을 묵상해요.</p>
-
-      
-      <article class="topic-card" aria-label="오늘의 기도 주제">
-        <div class="topic-label">SATURDAY PRAYER</div>
-        <div class="topic-main">오늘도<br>하나님이 나와 함께</div>
-        <div class="topic-foot">WITH · IMMANUEL · ONENESS</div>
-      </article>
-
-      <article class="prayer-image-card" aria-label="오늘의 이미지 기도카드">
+<section class="image-first-section" id="word">
+      <article class="prayer-image-card hero-prayer-image" aria-label="오늘의 말씀 기도이미지">
         <img src="assets/daily_prayer_card.png" alt="문제를 피하지 말고 그 속으로 들어가 평생의 답을 찾아요. 주일 1부 말씀 중">
       </article>
-
       <div class="daily-prayer" id="dailyPrayer"></div>
-
-      <details class="source-card">
-        <summary>교회 제공 원본 기도카드 펼쳐 보기</summary>
-        <div class="source-wrap">
-          <img id="sourceImage" class="source-image" alt="교회 제공 기도카드">
-          <p class="source-caption">원본 기도카드는 필요할 때만 펼쳐 볼 수 있도록 접어 두었습니다. 화면에서는 가독성을 위해 위의 오늘의 기도카드를 먼저 보여 줍니다.</p>
-        </div>
-      </details>
-    </section>
-
-    <section class="hero" id="word">
-      <div class="eyebrow">2026년 7월 19일 · 이번 주 강단 말씀</div>
-      <h1 id="title"></h1>
-      <div class="tag" id="tag"></div>
-      <p class="key" id="key"></p>
     </section>
 
     <section class="section" id="pray">
@@ -602,14 +606,14 @@
 
     
     <section class="section" id="myPrayer">
-      <h2>내가 붙잡은 말씀과 기도</h2>
-      <p class="sub">오늘 마음에 남은 한 문장과 나의 기도제목을 기록해 두세요. 이 기기에는 바로 저장되며, 로그인 기능을 연결하면 다른 기기에서도 볼 수 있게 확장할 수 있습니다.</p>
+      <h2>나의 말씀·기도 기록</h2>
+      <p class="sub">오늘 내가 붙잡은 한 문장과 기도제목을 적어 두세요. 이 버전에서는 현재 기기에 저장되어 페이지를 다시 열어도 남아 있습니다.</p>
 
       <label class="field-label" for="mySentence">내가 붙잡은 한 문장</label>
       <textarea id="mySentence" class="journal-input" maxlength="300" placeholder="예: 문제를 피하지 말고 그 속에서 하나님이 주시는 답을 찾자."></textarea>
 
       <label class="field-label" for="myPrayerText">내가 쓴 기도제목</label>
-      <textarea id="myPrayerText" class="journal-input" maxlength="1000" placeholder="오늘의 기도제목을 적어 보세요."></textarea>
+      <textarea id="myPrayerText" class="journal-input" maxlength="1000" placeholder="나의 말로 오늘의 기도제목을 적어 보세요."></textarea>
 
       <button class="primary" id="saveMyPrayer" type="button">내 기록 저장하기</button>
       <div class="save-status" id="myPrayerStatus" role="status"></div>
@@ -619,9 +623,8 @@
       <h2>익명 기도함</h2>
       <p class="sub">지금 마음이나 기도제목을 짧게 적어 보세요. 이름, 학교명, 친구 실명과 연락처는 적지 마세요.</p>
       <textarea id="anonymousPrayer" maxlength="1000" placeholder="예: 친구와의 관계가 회복되도록 기도해 주세요."></textarea>
-      <button class="primary" id="submitAnonymousPrayer" type="button">익명으로 기도함에 남기기</button>
-      <div class="save-status" id="anonymousStatus" role="status"></div>
-      <div class="coming">실명·학교명·연락처를 적지 마세요. Supabase 설정 전에는 전송 버튼이 비활성 안내를 표시합니다.</div>
+      <button class="disabled" type="button" onclick="alert('익명 기도함은 다음 단계에서 Supabase DB와 연결할 예정입니다.')">익명 기도함에 남기기</button>
+      <div class="coming">현재 미리보기에서는 저장되지 않습니다 · DB 연결 예정</div>
     </section>
 
     <p class="footer-note">AI가 하나님의 뜻을 알려주는 페이지가 아닙니다.<br>이번 주 강단 말씀을 기억하고 기도를 이어가도록 돕는 도구입니다.</p>
@@ -782,60 +785,22 @@ document.querySelectorAll(".nav").forEach(btn=>{
   const sentence = document.getElementById("mySentence");
   const prayer = document.getElementById("myPrayerText");
   const status = document.getElementById("myPrayerStatus");
+  if (!sentence || !prayer) return;
 
-  const saved = JSON.parse(localStorage.getItem("prayonMyPrayer") || "{}");
-  sentence.value = saved.sentence || "";
-  prayer.value = saved.prayer || "";
+  try {
+    const saved = JSON.parse(localStorage.getItem("prayonMyPrayer") || "{}");
+    sentence.value = saved.sentence || "";
+    prayer.value = saved.prayer || "";
+  } catch(e) {}
 
   document.getElementById("saveMyPrayer").addEventListener("click", function(){
-    const payload = {
+    localStorage.setItem("prayonMyPrayer", JSON.stringify({
       sentence: sentence.value.trim(),
       prayer: prayer.value.trim(),
       updatedAt: new Date().toISOString()
-    };
-    localStorage.setItem("prayonMyPrayer", JSON.stringify(payload));
+    }));
     status.className = "save-status success";
-    status.textContent = "이 기기에 안전하게 저장했습니다.";
-  });
-
-  const anonymousBtn = document.getElementById("submitAnonymousPrayer");
-  const anonymousStatus = document.getElementById("anonymousStatus");
-
-  anonymousBtn.addEventListener("click", async function(){
-    const content = document.getElementById("anonymousPrayer").value.trim();
-    if (!content) {
-      anonymousStatus.className = "save-status error";
-      anonymousStatus.textContent = "기도제목을 먼저 적어 주세요.";
-      return;
-    }
-
-    const cfg = window.PRAYON_SUPABASE || {};
-    if (!cfg.url || !cfg.publishableKey || cfg.url.includes("YOUR_")) {
-      anonymousStatus.className = "save-status error";
-      anonymousStatus.textContent = "아직 온라인 기도함이 연결되지 않았습니다. Supabase 설정 후 바로 사용할 수 있습니다.";
-      return;
-    }
-
-    try {
-      anonymousBtn.disabled = true;
-      anonymousBtn.textContent = "저장 중…";
-      const client = window.supabase.createClient(cfg.url, cfg.publishableKey);
-      const { error } = await client.from("anonymous_prayers").insert({
-        content,
-        source: "prayon-web"
-      });
-      if (error) throw error;
-      document.getElementById("anonymousPrayer").value = "";
-      anonymousStatus.className = "save-status success";
-      anonymousStatus.textContent = "익명 기도함에 안전하게 전달했습니다.";
-    } catch (e) {
-      anonymousStatus.className = "save-status error";
-      anonymousStatus.textContent = "저장하지 못했습니다. 잠시 후 다시 시도해 주세요.";
-      console.error(e);
-    } finally {
-      anonymousBtn.disabled = false;
-      anonymousBtn.textContent = "익명으로 기도함에 남기기";
-    }
+    status.textContent = "이 기기에 저장했습니다.";
   });
 })();
 </script>
