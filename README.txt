@@ -33,3 +33,11 @@ PRAY ON v9 — Supabase + 관리자 익명 기도함
 - Project URL 입력 완료
 - Publishable key 입력 완료
 - Secret key/service_role 키는 사용하지 않음
+
+
+PRAY ON v10 수정
+- 삭제된 HTML 요소를 호출하던 JavaScript 오류를 수정했습니다.
+- 이 오류로 중단되었던 테두리 색상 변경 기능을 복구했습니다.
+- 메인 기도이미지 아래에 주일 1부 강단 메시지 제목·본문·핵심문장을 다시 표시했습니다.
+- 기도이미지와 동일하게 주일 1부 메시지로 고정해 내용 불일치를 막았습니다.
+- Supabase Project URL과 Publishable key는 기존 연결 완료 상태를 유지했습니다.

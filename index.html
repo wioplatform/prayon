@@ -540,6 +540,49 @@
     .save-status.error{color:#b54457}
     .save-status.success{color:#427d5a}
 
+  
+    .message-title-card{
+      margin-top:20px;
+      padding:25px 24px;
+      border-radius:24px;
+      background:linear-gradient(135deg,var(--accent-soft),rgba(255,255,255,.94));
+      border:1px solid var(--accent);
+      box-shadow:0 15px 36px rgba(40,28,40,.07);
+    }
+    .message-title-label{
+      margin-bottom:9px;
+      color:var(--accent-deep);
+      font-size:13px;
+      font-weight:950;
+      letter-spacing:.2px;
+    }
+    .message-title-card h1{
+      max-width:none;
+      margin:0 0 9px;
+      font-size:clamp(27px,5.5vw,38px);
+      line-height:1.25;
+      letter-spacing:-1.4px;
+    }
+    .message-title-meta{
+      color:#777985;
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:14px;
+    }
+    .message-title-card p{
+      margin:0;
+      color:#4b4d55;
+      font-size:15px;
+      line-height:1.75;
+    }
+    .smile-badge{
+      background:linear-gradient(145deg,var(--accent-soft),var(--accent))!important;
+    }
+    .hero-prayer-image{
+      border-color:var(--accent)!important;
+      box-shadow:0 22px 58px var(--accent-soft)!important;
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
@@ -579,6 +622,14 @@
       <article class="prayer-image-card hero-prayer-image" aria-label="오늘의 말씀 기도이미지">
         <img src="assets/daily_prayer_card.png" alt="문제를 피하지 말고 그 속으로 들어가 평생의 답을 찾아요. 주일 1부 말씀 중">
       </article>
+
+      <article class="message-title-card" aria-label="이번 주 강단 메시지">
+        <div class="message-title-label">이번 주 강단 메시지</div>
+        <h1 id="title">미래를 미리 본 자들</h1>
+        <div class="message-title-meta" id="tag">주일 1부 예배 · 사도행전 2:17-18</div>
+        <p id="key">문제를 피하려고만 하지 말고, 그 속으로 들어가 하나님이 주시는 평생의 답을 찾아요.</p>
+      </article>
+
       <div class="daily-prayer" id="dailyPrayer"></div>
     </section>
 
@@ -671,13 +722,17 @@ const messages = [
   }
 ];
 
-const daySeed = Number(new Date().toISOString().slice(0,10).replaceAll("-",""));
-const selected = messages[daySeed % messages.length];
+const selected = messages[0];
 
-document.getElementById("title").textContent = selected.title;
-document.getElementById("tag").textContent = `${selected.service} · ${selected.scripture}`;
-document.getElementById("key").textContent = selected.key;
-document.getElementById("sourceImage").src = selected.image;
+const titleEl = document.getElementById("title");
+const tagEl = document.getElementById("tag");
+const keyEl = document.getElementById("key");
+const sourceImageEl = document.getElementById("sourceImage");
+
+if (titleEl) titleEl.textContent = selected.title;
+if (tagEl) tagEl.textContent = `${selected.service} · ${selected.scripture}`;
+if (keyEl) keyEl.textContent = selected.key;
+if (sourceImageEl) sourceImageEl.src = selected.image;
 
 const dailyCards = [
   {
@@ -777,12 +832,16 @@ function applyColor(color,deep){
   root.style.setProperty("--accent-deep",deep);
   root.style.setProperty("--accent-soft",color+"3D");
   root.style.setProperty("--accent-faint",color+"1C");
-  localStorage.setItem("wordOnAccent",JSON.stringify({color,deep}));
+  localStorage.setItem("prayOnAccent",JSON.stringify({color,deep}));
   swatches.forEach(s=>s.classList.toggle("active",s.dataset.color.toLowerCase()===color.toLowerCase()));
 }
 swatches.forEach(s=>s.addEventListener("click",()=>applyColor(s.dataset.color,s.dataset.deep)));
 let saved={color:"#f7a7d8",deep:"#de72b2"};
-try{ saved=JSON.parse(localStorage.getItem("wordOnAccent"))||saved; }catch(e){}
+try{
+  saved=JSON.parse(localStorage.getItem("prayOnAccent"))
+    ||JSON.parse(localStorage.getItem("wordOnAccent"))
+    ||saved;
+}catch(e){}
 applyColor(saved.color,saved.deep);
 
 document.querySelectorAll(".nav").forEach(btn=>{
