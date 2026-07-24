@@ -583,6 +583,147 @@
       box-shadow:0 22px 58px var(--accent-soft)!important;
     }
 
+  
+    /* PRAY ON v11 */
+    .top-message-card{
+      margin:0 0 20px;
+    }
+    .image-first-section{
+      margin:0 0 var(--section-gap);
+    }
+    .saved-journal-card{
+      margin:0 0 20px;
+      padding:28px 25px;
+      border-radius:28px;
+      background:
+        radial-gradient(circle at 90% 10%,var(--accent-soft),transparent 28%),
+        linear-gradient(145deg,#fff,var(--accent-faint));
+      border:2px solid var(--accent);
+      box-shadow:0 18px 44px var(--accent-soft);
+    }
+    .saved-journal-label{
+      color:var(--accent-deep);
+      font-size:13px;
+      font-weight:950;
+      margin-bottom:13px;
+    }
+    .saved-journal-text{
+      white-space:pre-wrap;
+      font-size:20px;
+      line-height:1.85;
+      font-weight:780;
+      letter-spacing:-.4px;
+      color:#34343b;
+    }
+    .saved-journal-meta{
+      margin-top:15px;
+      color:#92939b;
+      font-size:12px;
+    }
+    .saved-journal-actions{
+      display:flex;
+      gap:8px;
+      margin-top:18px;
+    }
+    .mini-action{
+      border:1px solid var(--accent-soft);
+      border-radius:999px;
+      padding:10px 14px;
+      background:var(--accent-soft);
+      color:#4d3c48;
+      font-size:12px;
+      font-weight:900;
+    }
+    .mini-action.quiet{
+      background:#f5f4f6;
+      border-color:#ece9ed;
+      color:#777780;
+    }
+    .journal-large{
+      min-height:245px;
+      font-size:20px;
+      line-height:1.85;
+      letter-spacing:-.25px;
+      padding:22px;
+    }
+    .public-list-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:14px;
+      margin-top:30px;
+      padding-top:25px;
+      border-top:1px solid var(--line);
+    }
+    .public-list-head h3{
+      margin:0 0 6px;
+      font-size:21px;
+      letter-spacing:-.8px;
+    }
+    .public-list-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .public-prayer-status{
+      min-height:22px;
+      margin-top:12px;
+      font-size:13px;
+      color:var(--muted);
+    }
+    .public-prayer-list{
+      display:grid;
+      gap:13px;
+      margin-top:12px;
+    }
+    .public-prayer-item{
+      padding:19px 18px;
+      border-radius:20px;
+      border:1px solid var(--line);
+      background:#fbfafc;
+    }
+    .public-prayer-text{
+      white-space:pre-wrap;
+      color:#44454c;
+      font-size:15px;
+      line-height:1.75;
+    }
+    .public-prayer-foot{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      margin-top:13px;
+    }
+    .public-prayer-date{
+      color:#a0a1a8;
+      font-size:11px;
+    }
+    .report-button{
+      border:0;
+      border-radius:999px;
+      padding:8px 11px;
+      background:#fff0f2;
+      color:#b64c5c;
+      font-size:11px;
+      font-weight:900;
+    }
+    .empty-prayers{
+      padding:28px 15px;
+      text-align:center;
+      border:1px dashed #e8e4e8;
+      border-radius:19px;
+      color:#96969e;
+      font-size:13px;
+      line-height:1.7;
+    }
+    @media(max-width:470px){
+      .saved-journal-card{padding:24px 20px;border-radius:24px}
+      .saved-journal-text{font-size:18px}
+      .journal-large{font-size:18px;min-height:230px}
+      .public-list-head{align-items:flex-start}
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
@@ -618,19 +759,37 @@
         <button class="swatch" data-color="#f7a7d8" data-deep="#de72b2" style="background:#f7a7d8"></button>
       </div>
     </header>
-<section class="image-first-section" id="word">
+<section class="saved-journal-card" id="savedJournalCard" hidden>
+      <div class="saved-journal-label">내가 다시 붙잡을 말씀과 기도</div>
+      <div class="saved-journal-text" id="savedJournalText"></div>
+      <div class="saved-journal-meta" id="savedJournalMeta"></div>
+      <div class="saved-journal-actions">
+        <button class="mini-action" id="editSavedJournal" type="button">수정하기</button>
+        <button class="mini-action quiet" id="clearSavedJournal" type="button">지우기</button>
+      </div>
+    </section>
+
+    <article class="message-title-card top-message-card" id="word" aria-label="이번 주 강단 메시지">
+      <div class="message-title-label">이번 주 강단 메시지</div>
+      <h1 id="title">미래를 미리 본 자들</h1>
+      <div class="message-title-meta" id="tag">주일 1부 예배 · 사도행전 2:17-18</div>
+      <p id="key">문제를 피하려고만 하지 말고, 그 속으로 들어가 하나님이 주시는 평생의 답을 찾아요.</p>
+    </article>
+
+    <section class="image-first-section">
       <article class="prayer-image-card hero-prayer-image" aria-label="오늘의 말씀 기도이미지">
         <img src="assets/daily_prayer_card.png" alt="문제를 피하지 말고 그 속으로 들어가 평생의 답을 찾아요. 주일 1부 말씀 중">
       </article>
 
-      <article class="message-title-card" aria-label="이번 주 강단 메시지">
-        <div class="message-title-label">이번 주 강단 메시지</div>
-        <h1 id="title">미래를 미리 본 자들</h1>
-        <div class="message-title-meta" id="tag">주일 1부 예배 · 사도행전 2:17-18</div>
-        <p id="key">문제를 피하려고만 하지 말고, 그 속으로 들어가 하나님이 주시는 평생의 답을 찾아요.</p>
-      </article>
-
       <div class="daily-prayer" id="dailyPrayer"></div>
+
+      <details class="source-card">
+        <summary>교회에서 제공한 기도카드 보기</summary>
+        <div class="source-wrap">
+          <img id="sourceImage" class="source-image" src="assets/prayer_1st.jpeg" alt="교회 제공 주일 1부 기도카드">
+          <p class="source-caption">원본 카드의 작은 글씨가 필요할 때만 펼쳐 볼 수 있도록 접어 두었습니다.</p>
+        </div>
+      </details>
     </section>
 
     <section class="section" id="pray">
@@ -669,17 +828,17 @@
 
     
     <section class="section" id="myPrayer">
-      <h2>나의 말씀·기도 기록</h2>
-      <p class="sub">오늘 내가 붙잡은 한 문장과 기도제목을 적어 두세요. 이 버전에서는 현재 기기에 저장되어 페이지를 다시 열어도 남아 있습니다.</p>
+      <h2>내가 붙잡은 말씀과 기도</h2>
+      <p class="sub">한 칸에 오늘 마음에 남은 말씀과 나의 기도를 자유롭게 적어 보세요. 저장하면 다음에 같은 기기로 다시 접속했을 때 페이지 가장 위에서 먼저 만날 수 있습니다.</p>
 
-      <label class="field-label" for="mySentence">내가 붙잡은 한 문장</label>
-      <textarea id="mySentence" class="journal-input" maxlength="300" placeholder="예: 문제를 피하지 말고 그 속에서 하나님이 주시는 답을 찾자."></textarea>
+      <textarea id="myJournal" class="journal-input journal-large" maxlength="1600" placeholder="예:
+문제를 피하지 말고 그 속에서 하나님이 주시는 답을 찾자.
 
-      <label class="field-label" for="myPrayerText">내가 쓴 기도제목</label>
-      <textarea id="myPrayerText" class="journal-input" maxlength="1000" placeholder="나의 말로 오늘의 기도제목을 적어 보세요."></textarea>
+하나님, 오늘의 어려움을 피하지 않고 말씀과 기도로 답을 찾게 해 주세요."></textarea>
 
-      <button class="primary" id="saveMyPrayer" type="button">내 기록 저장하기</button>
+      <button class="primary" id="saveMyPrayer" type="button">나의 말씀과 기도 저장하기</button>
       <div class="save-status" id="myPrayerStatus" role="status"></div>
+      <p class="note">현재는 이 휴대폰·컴퓨터의 브라우저에 저장됩니다. 다른 기기에서도 이어 보려면 추후 개인 로그인을 연결해야 합니다.</p>
     </section>
 
     <section class="section" id="box">
@@ -688,7 +847,17 @@
       <textarea id="anonymousPrayer" maxlength="1000" placeholder="예: 친구와의 관계가 회복되도록 기도해 주세요."></textarea>
       <button class="primary" id="submitAnonymousPrayer" type="button">익명 기도함에 남기기</button>
       <div class="save-status" id="anonymousStatus" role="status"></div>
-      <div class="coming">이름·학교명·연락처는 적지 마세요. 제출된 내용은 관리자만 확인하고 삭제할 수 있습니다.</div>
+      <div class="coming">이름·학교명·연락처는 적지 마세요. 등록된 기도제목은 공개 목록에 표시되며 관리자가 삭제할 수 있습니다.</div>
+
+      <div class="public-list-head">
+        <div>
+          <h3>함께 기도해요</h3>
+          <p>최근 등록된 익명 기도제목입니다.</p>
+        </div>
+        <button class="mini-action" id="refreshPrayerList" type="button">새로고침</button>
+      </div>
+      <div class="public-prayer-status" id="publicPrayerStatus"></div>
+      <div class="public-prayer-list" id="publicPrayerList"></div>
     </section>
 
     <p class="admin-entry"><a href="admin.html">관리자</a></p>
@@ -853,77 +1022,254 @@ document.querySelectorAll(".nav").forEach(btn=>{
 });
 </script>
 
+
+
+
+
+
+
 <script>
 (function(){
-  const sentence = document.getElementById("mySentence");
-  const prayer = document.getElementById("myPrayerText");
+  const JOURNAL_KEY = "prayonMyJournalV1";
+  const OLD_KEY = "prayonMyPrayer";
+
+  const input = document.getElementById("myJournal");
+  const saveButton = document.getElementById("saveMyPrayer");
   const status = document.getElementById("myPrayerStatus");
-  if (!sentence || !prayer) return;
+  const topCard = document.getElementById("savedJournalCard");
+  const topText = document.getElementById("savedJournalText");
+  const topMeta = document.getElementById("savedJournalMeta");
 
-  try {
-    const saved = JSON.parse(localStorage.getItem("prayonMyPrayer") || "{}");
-    sentence.value = saved.sentence || "";
-    prayer.value = saved.prayer || "";
-  } catch(e) {}
+  function formatDate(value) {
+    if (!value) return "";
+    try {
+      return new Intl.DateTimeFormat("ko-KR", {
+        year:"numeric", month:"long", day:"numeric", hour:"2-digit", minute:"2-digit"
+      }).format(new Date(value));
+    } catch(e) { return ""; }
+  }
 
-  document.getElementById("saveMyPrayer").addEventListener("click", function(){
-    localStorage.setItem("prayonMyPrayer", JSON.stringify({
-      sentence: sentence.value.trim(),
-      prayer: prayer.value.trim(),
-      updatedAt: new Date().toISOString()
-    }));
+  function readJournal() {
+    try {
+      const current = JSON.parse(localStorage.getItem(JOURNAL_KEY) || "null");
+      if (current && current.text) return current;
+
+      // Automatically migrate the old two-field record.
+      const old = JSON.parse(localStorage.getItem(OLD_KEY) || "null");
+      if (old && (old.sentence || old.prayer)) {
+        const merged = [old.sentence, old.prayer].filter(Boolean).join("\n\n");
+        const migrated = { text: merged, updatedAt: old.updatedAt || new Date().toISOString() };
+        localStorage.setItem(JOURNAL_KEY, JSON.stringify(migrated));
+        return migrated;
+      }
+    } catch(e) {}
+    return null;
+  }
+
+  function renderJournal(record) {
+    if (!record || !record.text) {
+      topCard.hidden = true;
+      return;
+    }
+    topText.textContent = record.text;
+    topMeta.textContent = formatDate(record.updatedAt) + " 저장";
+    topCard.hidden = false;
+    input.value = record.text;
+  }
+
+  const saved = readJournal();
+  renderJournal(saved);
+
+  saveButton.addEventListener("click", function(){
+    const text = input.value.trim();
+    if (!text) {
+      status.className = "save-status error";
+      status.textContent = "말씀이나 기도 내용을 먼저 적어 주세요.";
+      return;
+    }
+    const record = { text, updatedAt:new Date().toISOString() };
+    localStorage.setItem(JOURNAL_KEY, JSON.stringify(record));
+    renderJournal(record);
     status.className = "save-status success";
-    status.textContent = "이 기기에 저장했습니다.";
+    status.textContent = "이 기기에 저장했습니다. 다음 접속부터 페이지 위에서 먼저 보여 드립니다.";
+    topCard.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+
+  document.getElementById("editSavedJournal").addEventListener("click", function(){
+    document.getElementById("myPrayer").scrollIntoView({behavior:"smooth", block:"start"});
+    setTimeout(() => input.focus(), 450);
+  });
+
+  document.getElementById("clearSavedJournal").addEventListener("click", function(){
+    if (!confirm("저장한 말씀과 기도를 이 기기에서 지울까요?")) return;
+    localStorage.removeItem(JOURNAL_KEY);
+    input.value = "";
+    topCard.hidden = true;
+    status.className = "save-status";
+    status.textContent = "저장한 기록을 지웠습니다.";
   });
 })();
 </script>
 
-
 <script>
 (function(){
   const cfg = window.PRAYON_SUPABASE || {};
-  const button = document.getElementById("submitAnonymousPrayer");
+  const submitButton = document.getElementById("submitAnonymousPrayer");
   const input = document.getElementById("anonymousPrayer");
-  const status = document.getElementById("anonymousStatus");
-  if (!button || !input || !status) return;
+  const submitStatus = document.getElementById("anonymousStatus");
+  const list = document.getElementById("publicPrayerList");
+  const listStatus = document.getElementById("publicPrayerStatus");
+  const refreshButton = document.getElementById("refreshPrayerList");
 
-  function setStatus(message, type) {
-    status.textContent = message;
-    status.className = "save-status " + (type || "");
+  if (!cfg.url || !cfg.publishableKey || cfg.publishableKey.includes("YOUR_")) {
+    submitStatus.className = "save-status error";
+    submitStatus.textContent = "Supabase 연결 설정을 확인해 주세요.";
+    return;
   }
 
-  button.addEventListener("click", async function(){
-    const content = input.value.trim();
-    if (!content) {
-      setStatus("기도제목을 먼저 적어 주세요.", "error");
-      return;
-    }
-    if (!cfg.url || !cfg.publishableKey || cfg.publishableKey.includes("YOUR_")) {
-      setStatus("config.js에 Supabase Publishable key를 입력해 주세요.", "error");
-      return;
-    }
+  const client = window.supabase.createClient(cfg.url, cfg.publishableKey);
 
+  function setSubmitStatus(message, type) {
+    submitStatus.textContent = message;
+    submitStatus.className = "save-status " + (type || "");
+  }
+
+  function formatDate(value) {
+    try {
+      return new Intl.DateTimeFormat("ko-KR", {
+        month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"
+      }).format(new Date(value));
+    } catch(e) { return ""; }
+  }
+
+  function makeReportUrl(row) {
+    const email = (cfg.reportEmail || "").trim();
+    const subject = `[PRAY ON 신고] 익명 기도제목 #${row.id}`;
+    const body = [
+      "아래 익명 기도제목을 확인해 주세요.",
+      "",
+      `기도제목 ID: ${row.id}`,
+      `등록 시각: ${formatDate(row.created_at)}`,
+      "",
+      row.content,
+      "",
+      "관리자 페이지:",
+      location.origin + location.pathname.replace(/index\.html$/, "") + "admin.html"
+    ].join("\n");
+
+    if (!email || email.includes("YOUR_")) return "";
+    return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  }
+
+  async function submitReport(row, button) {
     button.disabled = true;
-    button.textContent = "전달 중…";
-    setStatus("", "");
+    const original = button.textContent;
+    button.textContent = "접수 중…";
 
     try {
-      const client = window.supabase.createClient(cfg.url, cfg.publishableKey);
+      const { error } = await client.from("prayer_reports").insert({
+        prayer_id: row.id,
+        source: "public-list"
+      });
+      if (error) throw error;
+
+      const mailUrl = makeReportUrl(row);
+      if (mailUrl) {
+        window.location.href = mailUrl;
+        button.textContent = "신고 접수됨";
+      } else {
+        button.textContent = "신고 접수됨";
+        alert("신고는 관리자 화면에 접수되었습니다. 이메일 알림을 사용하려면 config.js에 reportEmail을 입력해 주세요.");
+      }
+    } catch (error) {
+      console.error(error);
+      button.textContent = original;
+      button.disabled = false;
+      alert("신고를 접수하지 못했습니다. SQL 패치 실행 여부를 확인해 주세요.");
+    }
+  }
+
+  async function loadPrayers() {
+    listStatus.textContent = "기도제목을 불러오는 중입니다.";
+    list.innerHTML = "";
+
+    const { data, error } = await client
+      .from("anonymous_prayers")
+      .select("id,content,created_at")
+      .eq("is_archived", false)
+      .order("created_at", { ascending:false })
+      .limit(30);
+
+    if (error) {
+      console.error(error);
+      listStatus.textContent = "목록을 불러오지 못했습니다. supabase_v11_patch.sql을 실행해 주세요.";
+      return;
+    }
+
+    listStatus.textContent = data.length ? `최근 ${data.length}개의 기도제목` : "";
+    if (!data.length) {
+      list.innerHTML = '<div class="empty-prayers">아직 공개된 기도제목이 없습니다.<br>첫 번째 기도제목을 남겨 보세요.</div>';
+      return;
+    }
+
+    data.forEach(row => {
+      const item = document.createElement("article");
+      item.className = "public-prayer-item";
+
+      const text = document.createElement("div");
+      text.className = "public-prayer-text";
+      text.textContent = row.content;
+
+      const foot = document.createElement("div");
+      foot.className = "public-prayer-foot";
+
+      const date = document.createElement("div");
+      date.className = "public-prayer-date";
+      date.textContent = formatDate(row.created_at);
+
+      const report = document.createElement("button");
+      report.type = "button";
+      report.className = "report-button";
+      report.textContent = "신고하기";
+      report.addEventListener("click", () => submitReport(row, report));
+
+      foot.append(date, report);
+      item.append(text, foot);
+      list.append(item);
+    });
+  }
+
+  submitButton.addEventListener("click", async function(){
+    const content = input.value.trim();
+    if (!content) {
+      setSubmitStatus("기도제목을 먼저 적어 주세요.", "error");
+      return;
+    }
+
+    submitButton.disabled = true;
+    submitButton.textContent = "등록 중…";
+    setSubmitStatus("", "");
+
+    try {
       const { error } = await client
         .from("anonymous_prayers")
-        .insert({ content: content, source: "prayon-web" });
+        .insert({ content, source:"prayon-web" });
 
       if (error) throw error;
       input.value = "";
-      setStatus("익명 기도함에 안전하게 전달했습니다.", "success");
+      setSubmitStatus("등록했습니다. 아래 기도목록에 바로 표시됩니다.", "success");
+      await loadPrayers();
     } catch (error) {
       console.error(error);
-      setStatus("저장하지 못했습니다. SQL 정책과 config.js 설정을 확인해 주세요.", "error");
+      setSubmitStatus("저장하지 못했습니다. Supabase 정책을 확인해 주세요.", "error");
     } finally {
-      button.disabled = false;
-      button.textContent = "익명 기도함에 남기기";
+      submitButton.disabled = false;
+      submitButton.textContent = "익명 기도함에 남기기";
     }
   });
+
+  refreshButton.addEventListener("click", loadPrayers);
+  loadPrayers();
 })();
 </script>
 

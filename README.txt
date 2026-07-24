@@ -1,43 +1,29 @@
-PRAY ON v9 — Supabase + 관리자 익명 기도함
+PRAY ON v11 — 공개 익명 기도목록·신고·개인 기록 개선
 
-포함 파일
-- index.html: 사용자 페이지 및 익명 기도함 제출
-- admin.html: 관리자 이메일/비밀번호 로그인, 익명 기도 조회 및 즉시 삭제
-- config.js: Supabase Project URL과 Publishable key
-- supabase_full_schema.sql: 전체 테이블, RLS 정책, 관리자 권한 구조
-- assets/: 기존 이미지와 PDF
+주요 변경
+1. 주일 강단 메시지 제목을 메인 이미지보다 위로 이동했습니다.
+2. '교회에서 제공한 기도카드 보기' 접기 영역을 복원했습니다.
+3. '내가 붙잡은 한 문장'과 '기도제목'을 큰 입력칸 하나로 합쳤습니다.
+4. 저장한 개인 기록은 같은 기기로 재접속할 때 페이지 최상단에 나타납니다.
+5. 익명 기도제목을 등록하면 공개 목록에 바로 표시됩니다.
+6. 공개 목록의 각 항목에 신고하기 버튼을 추가했습니다.
+7. 신고 내역은 Supabase prayer_reports 테이블에 저장되며 관리자 화면에 신고 건수가 표시됩니다.
+8. config.js에 관리자 이메일을 입력하면 신고 시 이메일 앱도 함께 열립니다.
+9. 관리자는 admin.html에서 익명 기도제목을 즉시 삭제할 수 있습니다.
 
-설치 순서
-1. Supabase SQL Editor에서 supabase_full_schema.sql 전체 실행
-2. Supabase Authentication > Users에서 관리자 계정 생성
-   - 이메일과 비밀번호 지정
-   - 이메일 확인이 필요한 경우 Auto Confirm User를 사용하거나 확인 메일 처리
-3. SQL Editor에서 다음 한 줄을 관리자 이메일로 바꾸어 실행
-   update public.profiles
-   set role='admin', is_active=true, updated_at=now()
-   where lower(email)=lower('관리자이메일');
-4. Settings > API Keys에서 Publishable key 복사
-5. config.js의 YOUR_SUPABASE_PUBLISHABLE_KEY를 실제 키로 교체
-6. GitHub 저장소에 index.html, admin.html, config.js, assets 폴더 업로드
-7. 사용자 주소: /prayon/
-   관리자 주소: /prayon/admin.html
+반드시 실행할 SQL
+- 이미 v9/v10 SQL을 실행한 경우: supabase_v11_patch.sql 전체 실행
+- 처음 설치하는 경우: supabase_full_schema.sql 전체 실행
 
-주의
-- config.js에는 Publishable key만 사용합니다.
-- Secret key와 service_role key는 절대로 GitHub 또는 브라우저 코드에 넣지 마세요.
-- 익명 방문자는 기도제목을 제출만 할 수 있습니다.
-- 관리자 계정만 익명 기도제목을 읽고 삭제할 수 있습니다.
+신고 이메일 설정
+config.js에서 아래 값을 실제 관리자 이메일로 교체하세요.
+reportEmail: "YOUR_ADMIN_EMAIL@example.com"
 
+중요
+- 이메일 버튼은 사용자의 이메일 앱을 여는 방식입니다.
+- 신고 내역 자체는 이메일 발송 여부와 상관없이 Supabase 관리자 화면에 저장됩니다.
+- 익명 기도목록이 공개되므로 이름, 학교명, 친구 실명, 연락처, 개인을 알아볼 수 있는 정보는 입력하지 않도록 안내해야 합니다.
+- 개인 말씀·기도 기록은 현재 같은 브라우저의 localStorage에 저장됩니다. 다른 기기 동기화에는 개인 로그인이 필요합니다.
 
-배포 준비 상태
-- Project URL 입력 완료
-- Publishable key 입력 완료
-- Secret key/service_role 키는 사용하지 않음
-
-
-PRAY ON v10 수정
-- 삭제된 HTML 요소를 호출하던 JavaScript 오류를 수정했습니다.
-- 이 오류로 중단되었던 테두리 색상 변경 기능을 복구했습니다.
-- 메인 기도이미지 아래에 주일 1부 강단 메시지 제목·본문·핵심문장을 다시 표시했습니다.
-- 기도이미지와 동일하게 주일 1부 메시지로 고정해 내용 불일치를 막았습니다.
-- Supabase Project URL과 Publishable key는 기존 연결 완료 상태를 유지했습니다.
+GitHub 업로드
+index.html, admin.html, config.js, assets 폴더를 기존 저장소에 덮어쓰고 Commit changes를 누르세요.

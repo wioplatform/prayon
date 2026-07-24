@@ -50,7 +50,11 @@
       .item{grid-template-columns:1fr}
       .danger{width:100%}
     }
-  </style>
+      .report-badge{
+      display:inline-flex;align-items:center;margin-left:8px;padding:4px 8px;
+      border-radius:999px;background:#fff0f2;color:#b94353;font-size:11px;font-weight:900
+    }
+</style>
 </head>
 <body>
   <main class="wrap">
@@ -141,16 +145,28 @@
     adminStatus.textContent = "";
     prayerList.innerHTML = '<div class="empty">불러오는 중…</div>';
 
-    const { data, error } = await client
-      .from("anonymous_prayers")
-      .select("id,content,created_at")
-      .order("created_at", { ascending:false });
+    const [{ data, error }, reportResult] = await Promise.all([
+      client
+        .from("anonymous_prayers")
+        .select("id,content,created_at")
+        .order("created_at", { ascending:false }),
+      client
+        .from("prayer_reports")
+        .select("prayer_id")
+    ]);
 
     if (error) {
       prayerList.innerHTML = "";
       adminStatus.textContent = "기도제목을 불러오지 못했습니다. 관리자 권한과 RLS 정책을 확인해 주세요.";
       console.error(error);
       return;
+    }
+
+    const reportCounts = {};
+    if (!reportResult.error && reportResult.data) {
+      reportResult.data.forEach(item => {
+        reportCounts[item.prayer_id] = (reportCounts[item.prayer_id] || 0) + 1;
+      });
     }
 
     countText.textContent = `총 ${data.length}개의 기도제목`;
@@ -173,6 +189,14 @@
       const meta = document.createElement("div");
       meta.className = "meta";
       meta.textContent = formatDate(row.created_at);
+
+      const reports = reportCounts[row.id] || 0;
+      if (reports > 0) {
+        const badge = document.createElement("span");
+        badge.className = "report-badge";
+        badge.textContent = `신고 ${reports}건`;
+        meta.appendChild(badge);
+      }
 
       body.append(content, meta);
 
