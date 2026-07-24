@@ -397,13 +397,105 @@
       .daily-card{padding:30px 24px;min-height:300px}
       .pdf-strip{grid-template-columns:repeat(3,116px)}
     }
+  
+    /* PRAY ON v6 — paired logo and two-card prayer area */
+    .brand{gap:14px}
+    .brand-symbols{display:flex;align-items:center;gap:7px;flex:0 0 auto}
+    .brand-copy{display:flex;flex-direction:column;gap:2px;line-height:1}
+    .brand-copy strong{font-size:24px;letter-spacing:-1px}
+    .brand-copy small{font-size:11px;font-weight:750;color:var(--muted);letter-spacing:-.2px}
+    .brand-badge{width:43px;height:43px;flex-basis:43px}
+    .tower-spark{
+      position:absolute;right:1px;top:-7px;z-index:4;
+      font-size:15px;color:#fff5b8;
+      text-shadow:0 0 8px rgba(255,240,150,.95),0 0 14px rgba(255,255,255,.9);
+      transform:rotate(8deg);
+    }
+    .smile-badge{
+      border:2px solid rgba(42,28,39,.82);
+      background:linear-gradient(145deg,#ffc6e7,#f39acb);
+      box-shadow:0 12px 28px var(--accent-soft),inset 0 0 0 2px rgba(255,255,255,.24);
+    }
+    .smile-eye{
+      position:absolute;top:14px;width:4px;height:7px;border-radius:999px;background:#30202d;
+    }
+    .smile-eye-left{left:12px}
+    .smile-eye-right{right:12px}
+    .smile-mouth{
+      position:absolute;left:50%;bottom:8px;width:20px;height:11px;
+      transform:translateX(-50%);
+      border-bottom:3px solid #30202d;border-radius:0 0 20px 20px;
+    }
+
+    .topic-card{
+      min-height:270px;
+      padding:34px 32px;
+      border-radius:30px;
+      display:flex;flex-direction:column;justify-content:space-between;
+      background:
+        radial-gradient(circle at 88% 78%,transparent 0 35px,rgba(255,255,255,.54) 36px 39px,transparent 40px 62px,rgba(255,255,255,.42) 63px 66px,transparent 67px),
+        linear-gradient(105deg,#ffd4ed 0%,#fee7f5 52%,#fff8fc 100%);
+      border:1px solid rgba(247,167,216,.38);
+      box-shadow:0 18px 40px rgba(70,45,62,.08);
+      color:#3d2736;
+    }
+    .topic-label{font-size:15px;font-weight:950;letter-spacing:1.4px;color:#8a416d}
+    .topic-main{
+      font-size:clamp(32px,6.8vw,46px);font-weight:950;line-height:1.28;
+      letter-spacing:-1.8px;margin:26px 0;
+    }
+    .topic-foot{font-size:14px;font-weight:900;color:#82506e;letter-spacing:.2px}
+
+    .prayer-image-card{
+      width:100%;margin-top:20px;border-radius:30px;overflow:hidden;
+      background:#f8e6ef;border:1px solid rgba(247,167,216,.36);
+      box-shadow:0 20px 48px rgba(70,45,62,.11);
+    }
+    .prayer-image-card img{
+      display:block;width:100%;height:auto;object-fit:contain;background:#f8e6ef;
+    }
+
+    /* Retire the old overlaid card styles to avoid duplicated text. */
+    .daily-card,.image-card,.daily-overlay,.daily-photo{display:none!important}
+
+    @media(max-width:470px){
+      .brand{gap:9px}
+      .brand-symbols{gap:5px}
+      .brand-badge{width:37px;height:37px;flex-basis:37px}
+      .brand-copy strong{font-size:20px}
+      .brand-copy small{font-size:9px}
+      .smile-eye{top:12px}
+      .smile-eye-left{left:10px}
+      .smile-eye-right{right:10px}
+      .smile-mouth{bottom:7px;width:17px;height:9px}
+      .topic-card{min-height:230px;padding:29px 24px;border-radius:25px}
+      .prayer-image-card{border-radius:25px}
+    }
+
   </style>
 </head>
 <body>
 <main class="app">
   <div class="page">
     <header class="topbar">
-      <div class="brand"><span class="brand-badge tower-badge" aria-label="PRAY ON 망대 아이콘"><span class="tower-light"></span><span class="tower-roof"></span><span class="tower-body"></span><span class="tower-window"></span><span class="tower-base"></span></span><span>PRAY ON</span></div>
+      <div class="brand">
+        <span class="brand-symbols" aria-label="PRAY ON 망대와 스마일 로고">
+          <span class="brand-badge tower-badge">
+            <span class="tower-spark">✦</span>
+            <span class="tower-light"></span>
+            <span class="tower-roof"></span>
+            <span class="tower-body"></span>
+            <span class="tower-window"></span>
+            <span class="tower-base"></span>
+          </span>
+          <span class="brand-badge smile-badge" aria-hidden="true">
+            <span class="smile-eye smile-eye-left"></span>
+            <span class="smile-eye smile-eye-right"></span>
+            <span class="smile-mouth"></span>
+          </span>
+        </span>
+        <span class="brand-copy"><strong>PRAY ON</strong><small>오늘도 하나님과 함께</small></span>
+      </div>
       <div class="palette" aria-label="테두리 색상 선택">
         <button class="swatch" data-color="#9ddff2" data-deep="#50b8d2" style="background:#9ddff2"></button>
         <button class="swatch" data-color="#ffc2a5" data-deep="#e78f67" style="background:#ffc2a5"></button>
@@ -423,17 +515,19 @@
 
     <section class="section">
       <h2>오늘의 기도 카드</h2>
-      <p class="sub">매일 한 문장씩, 주일 1부 강단 말씀을 학교와 일상에서 다시 기억해요.</p>
+      <p class="sub">오늘의 주제를 먼저 기억하고, 이어지는 이미지 기도카드로 주일 1부 강단 말씀을 묵상해요.</p>
 
       
-      <article class="daily-card image-card">
-        <img class="daily-photo" src="assets/daily_prayer_card.png" alt="문제를 피하지 말고 그 속으로 들어가 평생의 답을 찾아요">
-        <div class="daily-overlay">
-          <div class="daily-day" id="dailyDay"></div>
-          <div class="daily-main" id="dailyMain"></div>
-          <div class="daily-sub" id="dailySub"></div>
-        </div>
+      <article class="topic-card" aria-label="오늘의 기도 주제">
+        <div class="topic-label">SATURDAY PRAYER</div>
+        <div class="topic-main">오늘도<br>하나님이 나와 함께</div>
+        <div class="topic-foot">WITH · IMMANUEL · ONENESS</div>
       </article>
+
+      <article class="prayer-image-card" aria-label="오늘의 이미지 기도카드">
+        <img src="assets/daily_prayer_card.png" alt="문제를 피하지 말고 그 속으로 들어가 평생의 답을 찾아요. 주일 1부 말씀 중">
+      </article>
+
       <div class="daily-prayer" id="dailyPrayer"></div>
 
       <details class="source-card">
@@ -571,9 +665,6 @@ const dailyCards = [
 ];
 
 const daily = dailyCards[new Date().getDay()];
-document.getElementById("dailyDay").textContent = daily.day;
-document.getElementById("dailyMain").textContent = daily.main;
-document.getElementById("dailySub").textContent = daily.sub;
 document.getElementById("dailyPrayer").textContent = daily.prayer;
 
 const prayers = {
