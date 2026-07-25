@@ -1,17 +1,12 @@
-PRAY ON v14
+PRAY ON v17
 
-수정 사항
-- 익명 기도함의 '기도 남기기' 버튼이 작동하지 않던 JavaScript 구문 오류 수정
-- 익명 기도 입력칸의 예시 문구 제거
-- 상단 스마일을 사용자가 제공한 노란색 원형 빅스마일 이미지로 교체
-- 기존 Supabase 연결값, 공개 기도목록, 신고, 관리자 삭제 기능 유지
-- 모든 이용자에게 공유되는 12시간 기도 발광 기능 유지
+마지막 행사 전 수정
+- 익명 기도제목 공개 범위를 최신 10개에서 최근 7일 전체로 변경
+- 최근 7일 안에 등록된 기도제목은 개수 제한 없이 계속 표시
+- 7일이 지난 기도제목은 사용자 공개 목록에서는 자동으로 제외
+- 관리자 페이지에서는 기존처럼 전체 기도제목 확인 및 삭제 가능
+- 공유 발광, 신고, Supabase 연결, 스마일 단독 로고 기능 유지
 
 배포
-1. index.html과 assets 폴더를 GitHub 저장소에 덮어씁니다.
-2. config.js와 admin.html은 기존 파일 그대로 함께 업로드해도 됩니다.
-3. Commit changes 후 GitHub Pages가 갱신되면 강력 새로고침합니다.
-
-DB
-- 이미 supabase_v11_patch.sql과 supabase_v13_shared_glow.sql을 실행했다면 추가 SQL은 필요하지 않습니다.
-- v13 공유 발광 SQL을 아직 실행하지 않았다면 supabase_v13_shared_glow.sql을 한 번 실행하세요.
+GitHub 저장소의 index.html을 새 파일로 교체하고 Commit changes를 누르세요.
+DB 구조 변경이 없으므로 추가 SQL 실행은 필요하지 않습니다.

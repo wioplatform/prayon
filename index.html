@@ -809,27 +809,37 @@
       .report-guide{max-width:230px}
     }
 
-  
-    .smile-logo-image{
-      width:45px;
-      height:45px;
-      flex:0 0 45px;
+    .smile-svg-logo{
+      width:46px;
+      height:46px;
+      flex:0 0 46px;
       display:block;
-      border-radius:50%;
-      filter:drop-shadow(0 7px 13px rgba(40,28,35,.14));
+      filter:drop-shadow(0 7px 13px rgba(40,28,35,.16));
     }
-    .smile-logo-image img{
+    .smile-svg-logo svg{
       width:100%;
       height:100%;
       display:block;
-      object-fit:contain;
     }
+    .db-health{
+      min-height:18px;
+      margin:7px 2px 0;
+      font-size:11px;
+      color:#9a979e;
+    }
+    .db-health.ok{color:#4f7d60}
+    .db-health.error{color:#b34b59}
     @media(max-width:470px){
-      .smile-logo-image{
-        width:39px;
-        height:39px;
-        flex-basis:39px;
+      .smile-svg-logo{
+        width:40px;
+        height:40px;
+        flex-basis:40px;
       }
+    }
+
+  
+    .brand-symbols.smile-only{
+      gap:0;
     }
 
   </style>
@@ -841,19 +851,30 @@
   <div class="page">
     <header class="topbar">
       <div class="brand">
-        <span class="brand-symbols" aria-label="PRAY ON 망대와 스마일 로고">
-          <span class="brand-badge tower-badge">
-            <span class="tower-spark">✦</span>
-            <span class="tower-light"></span>
-            <span class="tower-roof"></span>
-            <span class="tower-body"></span>
-            <span class="tower-window"></span>
-            <span class="tower-base"></span>
+        <span class="brand-symbols smile-only" aria-label="PRAY ON 스마일 로고">
+          <span class="smile-svg-logo" aria-hidden="true">
+            <svg viewBox="0 0 100 100" role="img" aria-label="빅스마일">
+              <defs>
+                <linearGradient id="silverRing" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0" stop-color="#ffffff"/>
+                  <stop offset=".28" stop-color="#b9b9b9"/>
+                  <stop offset=".52" stop-color="#f8f8f8"/>
+                  <stop offset=".78" stop-color="#9b9b9b"/>
+                  <stop offset="1" stop-color="#ffffff"/>
+                </linearGradient>
+                <linearGradient id="smileFill" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#f6d75d"/>
+                  <stop offset="1" stop-color="#e8c13f"/>
+                </linearGradient>
+              </defs>
+              <circle cx="50" cy="50" r="47" fill="url(#silverRing)"/>
+              <circle cx="50" cy="50" r="41" fill="#1f1a18"/>
+              <circle cx="50" cy="50" r="35.5" fill="url(#smileFill)"/>
+              <rect x="36.5" y="30" width="7" height="18" rx="3.5" fill="#211816"/>
+              <rect x="56.5" y="30" width="7" height="18" rx="3.5" fill="#211816"/>
+              <path d="M28 55 C31 78, 69 78, 72 55" fill="none" stroke="#211816" stroke-width="7" stroke-linecap="round"/>
+            </svg>
           </span>
-          <span class="smile-logo-image" aria-hidden="true">
-            <img src="assets/big_smile.png" alt="">
-          </span>
-        </span>
         </span>
         <span class="brand-copy"><strong>PRAY ON</strong><small>오늘도 하나님과 함께</small></span>
       </div>
@@ -938,10 +959,7 @@
       <h2>내가 붙잡은 말씀과 기도</h2>
       <p class="sub">한 칸에 오늘 마음에 남은 말씀과 나의 기도를 자유롭게 적어 보세요. 저장하면 다음에 같은 기기로 다시 접속했을 때 페이지 가장 위에서 먼저 만날 수 있습니다.</p>
 
-      <textarea id="myJournal" class="journal-input journal-large" maxlength="1600" placeholder="예:
-문제를 피하지 말고 그 속에서 하나님이 주시는 답을 찾자.
-
-하나님, 오늘의 어려움을 피하지 않고 말씀과 기도로 답을 찾게 해 주세요."></textarea>
+      <textarea id="myJournal" class="journal-input journal-large" maxlength="1600"></textarea>
 
       <button class="primary" id="saveMyPrayer" type="button">나의 말씀과 기도 저장하기</button>
       <div class="save-status" id="myPrayerStatus" role="status"></div>
@@ -954,12 +972,13 @@
       <textarea id="anonymousPrayer" maxlength="1000"></textarea>
       <button class="primary" id="submitAnonymousPrayer" type="button">익명 기도함에 남기기</button>
       <div class="save-status" id="anonymousStatus" role="status"></div>
+      <div class="db-health" id="dbHealth" role="status"></div>
       <div class="coming">이름·학교명·연락처는 적지 마세요. 등록된 기도제목은 공개 목록에 표시되며 관리자가 삭제할 수 있습니다.</div>
 
       <div class="public-list-head">
         <div>
           <h3>함께 기도해요</h3>
-          <p>최근 등록된 익명 기도제목입니다. 누군가 기도하면 모든 이용자에게 카드의 빛이 함께 켜집니다.</p>
+          <p>최근 7일 동안 등록된 익명 기도제목입니다. 누군가 기도하면 모든 이용자에게 카드의 빛이 함께 켜집니다.</p>
           <div class="report-guide">부적절한 내용이 있다면 작은 경고등을 눌러 알려주세요.</div>
         </div>
         <button class="mini-action" id="refreshPrayerList" type="button">새로고침</button>
@@ -1286,21 +1305,27 @@ document.querySelectorAll(".nav").forEach(btn=>{
   const submitButton = document.getElementById("submitAnonymousPrayer");
   const input = document.getElementById("anonymousPrayer");
   const submitStatus = document.getElementById("anonymousStatus");
+  const dbHealth = document.getElementById("dbHealth");
   const list = document.getElementById("publicPrayerList");
   const listStatus = document.getElementById("publicPrayerStatus");
   const refreshButton = document.getElementById("refreshPrayerList");
 
   const DEVICE_KEY = "prayonAnonymousDeviceIdV1";
-  const TWELVE_HOURS = 12 * 60 * 60 * 1000;
   const renderedPrayers = new Map();
 
-  if (!cfg.url || !cfg.publishableKey || cfg.publishableKey.includes("YOUR_")) {
-    submitStatus.className = "save-status error";
-    submitStatus.textContent = "Supabase 연결 설정을 확인해 주세요.";
-    return;
+  const baseUrl = String(cfg.url || "").replace(/\/+$/, "");
+  const apiKey = String(cfg.publishableKey || "");
+  const restUrl = baseUrl + "/rest/v1";
+
+  function setStatus(message, type){
+    submitStatus.textContent = message;
+    submitStatus.className = "save-status " + (type || "");
   }
 
-  const client = window.supabase.createClient(cfg.url, cfg.publishableKey);
+  function setHealth(message, type){
+    dbHealth.textContent = message;
+    dbHealth.className = "db-health " + (type || "");
+  }
 
   function createDeviceId(){
     if (window.crypto && typeof window.crypto.randomUUID === "function") {
@@ -1315,30 +1340,59 @@ document.querySelectorAll(".nav").forEach(btn=>{
 
   function getDeviceId(){
     let id = localStorage.getItem(DEVICE_KEY);
-    if (!id) {
+    if(!id){
       id = createDeviceId();
-      localStorage.setItem(DEVICE_KEY, id);
+      localStorage.setItem(DEVICE_KEY,id);
     }
     return id;
   }
 
   const deviceId = getDeviceId();
 
-  function setSubmitStatus(message, type) {
-    submitStatus.textContent = message;
-    submitStatus.className = "save-status " + (type || "");
+  function headers(extra){
+    return Object.assign({
+      "apikey": apiKey,
+      "Authorization": "Bearer " + apiKey,
+      "Content-Type": "application/json"
+    }, extra || {});
   }
 
-  function formatDate(value) {
-    try {
-      return new Intl.DateTimeFormat("ko-KR", {
-        month:"short", day:"numeric", hour:"2-digit", minute:"2-digit"
+  async function apiFetch(path, options){
+    const response = await fetch(restUrl + path, Object.assign({}, options || {}, {
+      headers: headers((options && options.headers) || {})
+    }));
+
+    const raw = await response.text();
+    let payload = null;
+    if(raw){
+      try{ payload = JSON.parse(raw); }
+      catch(e){ payload = raw; }
+    }
+
+    if(!response.ok){
+      const message =
+        (payload && (payload.message || payload.error_description || payload.hint))
+        || ("HTTP " + response.status);
+      const error = new Error(message);
+      error.status = response.status;
+      error.payload = payload;
+      throw error;
+    }
+    return payload;
+  }
+
+  function formatDate(value){
+    try{
+      return new Intl.DateTimeFormat("ko-KR",{
+        month:"short",day:"numeric",hour:"2-digit",minute:"2-digit"
       }).format(new Date(value));
-    } catch(e) { return ""; }
+    }catch(e){ return ""; }
   }
 
-  function makeReportUrl(row) {
-    const email = (cfg.reportEmail || "").trim();
+  function makeReportUrl(row){
+    const email = String(cfg.reportEmail || "").trim();
+    if(!email || email.includes("YOUR_")) return "";
+
     const subject = `[PRAY ON 신고] 익명 기도제목 #${row.id}`;
     const body = [
       "아래 익명 기도제목을 확인해 주세요.",
@@ -1352,216 +1406,204 @@ document.querySelectorAll(".nav").forEach(btn=>{
       location.origin + location.pathname.replace(/index\.html$/, "") + "admin.html"
     ].join("\n");
 
-    if (!email || email.includes("YOUR_")) return "";
     return `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
 
-  async function submitReport(row, button) {
+  async function submitReport(row,button){
     if(!confirm("이 내용이 부적절하다고 관리자에게 알릴까요?")) return;
 
     button.disabled = true;
-    const original = button.textContent;
-    button.textContent = "…";
-
-    try {
-      const { error } = await client.from("prayer_reports").insert({
-        prayer_id: row.id,
-        source: "public-list"
+    try{
+      await apiFetch("/prayer_reports",{
+        method:"POST",
+        headers:{"Prefer":"return=minimal"},
+        body:JSON.stringify({prayer_id:row.id,source:"public-list"})
       });
-      if (error) throw error;
-
-      const mailUrl = makeReportUrl(row);
       button.textContent = "✓";
       button.title = "신고 접수됨";
-      if (mailUrl) window.location.href = mailUrl;
-    } catch (error) {
+      const mailUrl = makeReportUrl(row);
+      if(mailUrl) window.location.href = mailUrl;
+    }catch(error){
       console.error(error);
-      button.textContent = original;
       button.disabled = false;
-      alert("신고를 접수하지 못했습니다. SQL 패치 실행 여부를 확인해 주세요.");
+      alert("신고 접수에 실패했습니다: " + error.message);
     }
   }
 
-  function setReactionView(view, globallyActive, mineActive) {
-    view.item.classList.toggle("prayed-active", globallyActive);
-    view.button.classList.toggle("active", mineActive);
+  function setReactionView(view,globallyActive,mineActive){
+    view.item.classList.toggle("prayed-active",globallyActive);
+    view.button.classList.toggle("active",mineActive);
     view.button.textContent = mineActive ? "기도했어요 ✦" : "기도했어요";
-    view.button.setAttribute("aria-pressed", String(mineActive));
     view.button.dataset.mineActive = mineActive ? "1" : "0";
   }
 
-  async function refreshReactionStates() {
-    const prayerIds = [...renderedPrayers.keys()];
-    if (!prayerIds.length) return;
+  async function refreshReactionStates(){
+    const ids = Array.from(renderedPrayers.keys());
+    if(!ids.length) return;
 
-    const { data, error } = await client
-      .from("prayer_reactions")
-      .select("prayer_id,device_id,expires_at")
-      .in("prayer_id", prayerIds)
-      .gt("expires_at", new Date().toISOString());
+    try{
+      const rows = await apiFetch(
+        "/prayer_reactions?select=prayer_id,device_id,expires_at"
+        + "&prayer_id=in.(" + ids.join(",") + ")"
+        + "&expires_at=gt." + encodeURIComponent(new Date().toISOString()),
+        {method:"GET"}
+      ) || [];
 
-    if (error) {
-      console.error("반응 상태 조회 실패", error);
-      return;
+      const global = new Set();
+      const mine = new Set();
+      rows.forEach(row=>{
+        global.add(Number(row.prayer_id));
+        if(row.device_id === deviceId) mine.add(Number(row.prayer_id));
+      });
+
+      renderedPrayers.forEach((view,id)=>{
+        setReactionView(view,global.has(Number(id)),mine.has(Number(id)));
+      });
+    }catch(error){
+      console.warn("공유 발광 조회 실패",error);
     }
-
-    const globallyActive = new Set();
-    const mineActive = new Set();
-
-    (data || []).forEach(row => {
-      globallyActive.add(Number(row.prayer_id));
-      if (row.device_id === deviceId) mineActive.add(Number(row.prayer_id));
-    });
-
-    renderedPrayers.forEach((view, prayerId) => {
-      setReactionView(
-        view,
-        globallyActive.has(Number(prayerId)),
-        mineActive.has(Number(prayerId))
-      );
-    });
   }
 
-  async function toggleReaction(row, view) {
+  async function toggleReaction(row,view){
     const mineActive = view.button.dataset.mineActive === "1";
     view.button.disabled = true;
-
-    try {
-      const { error } = await client.rpc("set_prayer_reaction", {
-        p_prayer_id: row.id,
-        p_device_id: deviceId,
-        p_active: !mineActive
+    try{
+      await apiFetch("/rpc/set_prayer_reaction",{
+        method:"POST",
+        body:JSON.stringify({
+          p_prayer_id:row.id,
+          p_device_id:deviceId,
+          p_active:!mineActive
+        })
       });
-      if (error) throw error;
-
       await refreshReactionStates();
-    } catch (error) {
+    }catch(error){
       console.error(error);
-      alert("기도 반응을 저장하지 못했습니다. supabase_v13_shared_glow.sql을 실행해 주세요.");
-    } finally {
+      alert("기도했어요 저장 실패: " + error.message);
+    }finally{
       view.button.disabled = false;
     }
   }
 
-  async function loadPrayers() {
+  async function loadPrayers(){
     listStatus.textContent = "기도제목을 불러오는 중입니다.";
     list.innerHTML = "";
     renderedPrayers.clear();
 
-    const { data, error } = await client
-      .from("anonymous_prayers")
-      .select("id,content,created_at")
-      .eq("is_archived", false)
-      .order("created_at", { ascending:false })
-      .limit(10);
+    try{
+      const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
 
-    if (error) {
+      const rows = await apiFetch(
+        "/anonymous_prayers"
+        + "?select=id,content,created_at"
+        + "&is_archived=eq.false"
+        + "&created_at=gte." + encodeURIComponent(sevenDaysAgo)
+        + "&order=created_at.desc",
+        {method:"GET"}
+      ) || [];
+
+      setHealth("Supabase 연결됨", "ok");
+      listStatus.textContent = rows.length ? `최근 7일간 ${rows.length}개의 기도제목` : "";
+
+      if(!rows.length){
+        list.innerHTML = '<div class="empty-prayers">최근 7일간 공개된 기도제목이 없습니다.<br>첫 번째 기도제목을 남겨 보세요.</div>';
+        return;
+      }
+
+      rows.forEach(row=>{
+        const item = document.createElement("article");
+        item.className = "public-prayer-item";
+
+        const text = document.createElement("div");
+        text.className = "public-prayer-text";
+        text.textContent = row.content;
+
+        const foot = document.createElement("div");
+        foot.className = "public-prayer-foot";
+
+        const date = document.createElement("div");
+        date.className = "public-prayer-date";
+        date.textContent = formatDate(row.created_at);
+
+        const actions = document.createElement("div");
+        actions.className = "prayer-actions";
+
+        const prayed = document.createElement("button");
+        prayed.type = "button";
+        prayed.className = "prayed-button";
+        prayed.textContent = "기도했어요";
+        prayed.dataset.mineActive = "0";
+
+        const view = {item:item,button:prayed};
+        renderedPrayers.set(Number(row.id),view);
+        prayed.addEventListener("click",()=>toggleReaction(row,view));
+
+        const report = document.createElement("button");
+        report.type = "button";
+        report.className = "report-icon-button";
+        report.textContent = "🚨";
+        report.title = "부적절한 내용 알리기";
+        report.setAttribute("aria-label","부적절한 내용 알리기");
+        report.addEventListener("click",()=>submitReport(row,report));
+
+        actions.append(prayed,report);
+        foot.append(date,actions);
+        item.append(text,foot);
+        list.append(item);
+      });
+
+      await refreshReactionStates();
+    }catch(error){
       console.error(error);
-      listStatus.textContent = "목록을 불러오지 못했습니다. Supabase 정책을 확인해 주세요.";
-      return;
+      setHealth("DB 연결 오류: " + error.message, "error");
+      listStatus.textContent = "목록을 불러오지 못했습니다.";
+      list.innerHTML = '<div class="empty-prayers">Supabase 정책이 아직 적용되지 않았습니다.<br>ZIP 안의 supabase_v15_repair.sql을 실행해 주세요.</div>';
     }
-
-    listStatus.textContent = data.length ? `최근 ${data.length}개의 기도제목` : "";
-    if (!data.length) {
-      list.innerHTML = '<div class="empty-prayers">아직 공개된 기도제목이 없습니다.<br>첫 번째 기도제목을 남겨 보세요.</div>';
-      return;
-    }
-
-    data.forEach(row => {
-      const item = document.createElement("article");
-      item.className = "public-prayer-item";
-
-      const text = document.createElement("div");
-      text.className = "public-prayer-text";
-      text.textContent = row.content;
-
-      const foot = document.createElement("div");
-      foot.className = "public-prayer-foot";
-
-      const date = document.createElement("div");
-      date.className = "public-prayer-date";
-      date.textContent = formatDate(row.created_at);
-
-      const actions = document.createElement("div");
-      actions.className = "prayer-actions";
-
-      const prayed = document.createElement("button");
-      prayed.type = "button";
-      prayed.className = "prayed-button";
-      prayed.textContent = "기도했어요";
-      prayed.setAttribute("aria-pressed","false");
-
-      const view = { item, button:prayed };
-      renderedPrayers.set(Number(row.id), view);
-
-      prayed.addEventListener("click", () => toggleReaction(row, view));
-
-      const report = document.createElement("button");
-      report.type = "button";
-      report.className = "report-icon-button";
-      report.textContent = "🚨";
-      report.title = "부적절한 내용 알리기";
-      report.setAttribute("aria-label","부적절한 내용 알리기");
-      report.addEventListener("click", () => submitReport(row, report));
-
-      actions.append(prayed,report);
-      foot.append(date,actions);
-      item.append(text,foot);
-      list.append(item);
-    });
-
-    await refreshReactionStates();
   }
 
-  submitButton.addEventListener("click", async function(){
+  async function submitPrayer(){
     const content = input.value.trim();
-    if (!content) {
-      setSubmitStatus("기도제목을 먼저 적어 주세요.", "error");
+    if(!content){
+      setStatus("기도제목을 먼저 적어 주세요.","error");
+      input.focus();
       return;
     }
 
     submitButton.disabled = true;
     submitButton.textContent = "등록 중…";
-    setSubmitStatus("", "");
+    setStatus("","");
 
-    try {
-      const { error } = await client
-        .from("anonymous_prayers")
-        .insert({ content, source:"prayon-web" });
+    try{
+      await apiFetch("/anonymous_prayers",{
+        method:"POST",
+        headers:{"Prefer":"return=minimal"},
+        body:JSON.stringify({content:content,source:"prayon-web"})
+      });
 
-      if (error) throw error;
       input.value = "";
-      setSubmitStatus("등록했습니다. 아래 기도목록에 바로 표시됩니다.", "success");
+      setStatus("익명 기도함에 등록했습니다.","success");
+      setHealth("Supabase 연결됨","ok");
       await loadPrayers();
-    } catch (error) {
+    }catch(error){
       console.error(error);
-      setSubmitStatus("저장하지 못했습니다. 잠시 후 다시 시도하거나 관리자에게 알려 주세요.", "error");
-    } finally {
+      setStatus("등록 실패: " + error.message,"error");
+      setHealth("DB 정책을 확인해 주세요.","error");
+    }finally{
       submitButton.disabled = false;
       submitButton.textContent = "익명 기도함에 남기기";
     }
-  });
+  }
 
-  refreshButton.addEventListener("click", loadPrayers);
+  if(!baseUrl || !apiKey || apiKey.includes("YOUR_")){
+    setStatus("Supabase 설정값이 없습니다.","error");
+    setHealth("config.js를 확인해 주세요.","error");
+    submitButton.disabled = true;
+    return;
+  }
 
-  // 모든 이용자 화면에 반응이 빠르게 공유되도록 Realtime을 구독합니다.
-  const reactionChannel = client
-    .channel("prayer-reactions-shared-glow")
-    .on(
-      "postgres_changes",
-      { event:"*", schema:"public", table:"prayer_reactions" },
-      () => refreshReactionStates()
-    )
-    .subscribe();
-
-  // 만료 시각이 지나도 이벤트가 발생하지 않으므로 1분마다 상태를 정리합니다.
-  const reactionTimer = window.setInterval(refreshReactionStates, 60 * 1000);
-
-  window.addEventListener("beforeunload", () => {
-    window.clearInterval(reactionTimer);
-    client.removeChannel(reactionChannel);
-  });
-
+  submitButton.addEventListener("click",submitPrayer);
+  refreshButton.addEventListener("click",loadPrayers);
+  window.setInterval(refreshReactionStates,60*1000);
   loadPrayers();
 })();
 </script>
