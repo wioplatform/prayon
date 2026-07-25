@@ -1,22 +1,17 @@
-PRAY ON v13 — 모든 이용자에게 공유되는 기도 발광
+PRAY ON v14
 
-변경 사항
-- '기도했어요' 상태를 localStorage가 아니라 Supabase에 저장합니다.
-- 한 사람이 기도했어요를 누르면 모든 이용자 화면에서 해당 기도카드가 발광합니다.
-- 기도한 인원 수는 표시하지 않습니다.
-- 반응은 12시간 동안 유지됩니다.
-- 같은 이용자가 다시 누르면 자신의 반응을 해제할 수 있습니다.
-- 다른 사람의 반응이 남아 있으면 카드는 계속 발광합니다.
-- Supabase Realtime을 연결해 열려 있는 화면에도 빠르게 반영합니다.
-- 만료 시각 반영을 위해 1분마다 상태를 다시 확인합니다.
-- 익명 기도목록은 최신 10개, 신고 이메일은 cog0211@gmail.com 설정을 유지합니다.
+수정 사항
+- 익명 기도함의 '기도 남기기' 버튼이 작동하지 않던 JavaScript 구문 오류 수정
+- 익명 기도 입력칸의 예시 문구 제거
+- 상단 스마일을 사용자가 제공한 노란색 원형 빅스마일 이미지로 교체
+- 기존 Supabase 연결값, 공개 기도목록, 신고, 관리자 삭제 기능 유지
+- 모든 이용자에게 공유되는 12시간 기도 발광 기능 유지
 
-반드시 실행할 SQL
-Supabase > SQL Editor에서 supabase_v13_shared_glow.sql 전체를 실행하세요.
+배포
+1. index.html과 assets 폴더를 GitHub 저장소에 덮어씁니다.
+2. config.js와 admin.html은 기존 파일 그대로 함께 업로드해도 됩니다.
+3. Commit changes 후 GitHub Pages가 갱신되면 강력 새로고침합니다.
 
-GitHub 배포
-index.html, admin.html, config.js, assets 폴더를 기존 저장소에 덮어쓰고 Commit changes를 누르세요.
-
-참고
-- 이용자 구분은 브라우저에 생성한 무작위 device_id를 사용하며 이름이나 연락처를 저장하지 않습니다.
-- 브라우저 데이터가 삭제되면 새 기기로 인식됩니다.
+DB
+- 이미 supabase_v11_patch.sql과 supabase_v13_shared_glow.sql을 실행했다면 추가 SQL은 필요하지 않습니다.
+- v13 공유 발광 SQL을 아직 실행하지 않았다면 supabase_v13_shared_glow.sql을 한 번 실행하세요.
