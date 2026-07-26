@@ -1018,17 +1018,26 @@ const messages = [
   }
 ];
 
-const selected = messages[0];
+let selected = { ...messages[0] };
 
 const titleEl = document.getElementById("title");
 const tagEl = document.getElementById("tag");
 const keyEl = document.getElementById("key");
 const sourceImageEl = document.getElementById("sourceImage");
+const dailyPrayerEl = document.getElementById("dailyPrayer");
 
-if (titleEl) titleEl.textContent = selected.title;
-if (tagEl) tagEl.textContent = `${selected.service} · ${selected.scripture}`;
-if (keyEl) keyEl.textContent = selected.key;
-if (sourceImageEl) sourceImageEl.src = selected.image;
+function renderWeeklyMessage(){
+  if (titleEl) titleEl.textContent = selected.title || "";
+  if (tagEl) {
+    tagEl.textContent = [selected.service, selected.scripture]
+      .filter(Boolean)
+      .join(" · ");
+  }
+  if (keyEl) keyEl.textContent = selected.key || "";
+  if (sourceImageEl && selected.image) sourceImageEl.src = selected.image;
+}
+
+renderWeeklyMessage();
 
 const dailyCards = [
   {
@@ -1076,9 +1085,10 @@ const dailyCards = [
 ];
 
 const daily = dailyCards[new Date().getDay()];
-document.getElementById("dailyPrayer").textContent = daily.prayer;
+let activeDailyPrayer = daily.prayer;
+if (dailyPrayerEl) dailyPrayerEl.textContent = activeDailyPrayer;
 
-const prayers = {
+let prayers = {
   worry:`하나님, 지금 제 마음에 걱정과 불안이 있습니다.
 이 문제를 피하려고만 하지 않고, 말씀을 붙잡고 그 속에서 하나님의 답을 찾게 해 주세요.
 오늘 해야 할 한 가지를 차분히 감당하고, 두려움보다 하나님을 더 크게 바라보게 해 주세요.
@@ -1104,6 +1114,64 @@ const prayers = {
 우리 학교에 말씀의 망대가 세워지고, 제가 사람을 살리는 작은 시작이 되게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`
 };
+
+async function loadPublishedWeeklyContent(){
+  const cfg = window.PRAYON_SUPABASE || {};
+  const baseUrl = String(cfg.url || "").replace(/\/+$/, "");
+  const apiKey = String(cfg.publishableKey || "");
+  if (!baseUrl || !apiKey || apiKey.includes("YOUR_")) return;
+
+  try {
+    const response = await fetch(
+      baseUrl + "/rest/v1/weekly_content"
+      + "?select=*"
+      + "&is_published=eq.true"
+      + "&order=message_date.desc"
+      + "&limit=1",
+      {
+        headers:{
+          "apikey":apiKey,
+          "Authorization":"Bearer " + apiKey
+        }
+      }
+    );
+
+    if (!response.ok) {
+      // SQL 패치를 아직 실행하지 않은 경우에도 기존 기본 콘텐츠는 유지합니다.
+      console.warn("주간 콘텐츠를 불러오지 못했습니다.", await response.text());
+      return;
+    }
+
+    const rows = await response.json();
+    if (!Array.isArray(rows) || !rows.length) return;
+
+    const row = rows[0];
+    selected = {
+      ...selected,
+      service: row.service_label || selected.service,
+      title: row.message_title || selected.title,
+      scripture: row.scripture || "",
+      key: row.key_sentence || "",
+    };
+
+    activeDailyPrayer = row.daily_prayer || activeDailyPrayer;
+    prayers = {
+      worry: row.prayer_worry || prayers.worry,
+      hurt: row.prayer_hurt || prayers.hurt,
+      anger: row.prayer_anger || prayers.anger,
+      courage: row.prayer_courage || prayers.courage,
+      thanks: row.prayer_thanks || prayers.thanks,
+      friend: row.prayer_friend || prayers.friend
+    };
+
+    renderWeeklyMessage();
+    if (dailyPrayerEl) dailyPrayerEl.textContent = activeDailyPrayer;
+  } catch (error) {
+    console.warn("주간 콘텐츠 연결 오류", error);
+  }
+}
+
+loadPublishedWeeklyContent();
 
 let mood = null;
 document.querySelectorAll(".mood").forEach(btn=>{
