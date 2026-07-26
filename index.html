@@ -842,6 +842,179 @@
       gap:0;
     }
 
+  
+    /* PRAY ON v19 — weekly dynamic message/card */
+    .daily-card-heading{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:18px;
+      margin-bottom:16px;
+    }
+    .daily-card-heading h2{
+      margin:4px 0 0;
+      font-size:26px;
+      line-height:1.3;
+      letter-spacing:-1px;
+    }
+    .daily-card-day{
+      flex:0 0 auto;
+      padding:9px 13px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent-deep);
+      font-size:12px;
+      font-weight:950;
+      letter-spacing:.8px;
+    }
+    .weekly-prayer-card{
+      position:relative;
+      width:100%;
+      aspect-ratio:1/1;
+      overflow:hidden;
+      border-radius:32px;
+      border:1px solid var(--accent);
+      box-shadow:0 24px 60px var(--accent-soft);
+      background:#15131a;
+    }
+    .weekly-prayer-bg{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .weekly-prayer-shade{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg,rgba(20,13,18,.05) 8%,rgba(25,15,22,.16) 42%,rgba(20,12,18,.84) 100%),
+        linear-gradient(90deg,rgba(255,244,247,.42),transparent 58%);
+    }
+    .weekly-prayer-content{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:clamp(24px,5vw,44px);
+      color:#fff;
+    }
+    .weekly-card-source{
+      align-self:flex-start;
+      margin-bottom:15px;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      color:#4a3241;
+      font-size:12px;
+      font-weight:950;
+      backdrop-filter:blur(10px);
+    }
+    .weekly-card-excerpt{
+      max-width:94%;
+      font-size:clamp(28px,6.5vw,48px);
+      line-height:1.32;
+      letter-spacing:-1.8px;
+      font-weight:950;
+      white-space:pre-line;
+      text-shadow:0 3px 24px rgba(0,0,0,.42);
+    }
+    .weekly-card-prayer{
+      margin-top:24px;
+      padding:20px 22px;
+      border-radius:22px;
+      background:rgba(255,255,255,.88);
+      color:#322a30;
+      font-size:clamp(15px,3.2vw,18px);
+      line-height:1.75;
+      white-space:pre-line;
+      backdrop-filter:blur(12px);
+      box-shadow:0 12px 34px rgba(0,0,0,.12);
+    }
+    .source-pdf-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+      padding:0 18px 20px;
+    }
+    .source-pdf-card{
+      display:block;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#fff;
+      color:var(--text);
+      text-decoration:none;
+    }
+    .source-pdf-card img{
+      width:100%;
+      aspect-ratio:4/3;
+      object-fit:cover;
+      object-position:top;
+      display:block;
+      border-bottom:1px solid var(--line);
+    }
+    .source-pdf-card span{
+      display:block;
+      padding:14px;
+      line-height:1.45;
+    }
+    .source-pdf-card strong{display:block;font-size:14px}
+    .source-pdf-card small{display:block;margin-top:4px;color:var(--muted);font-size:11px}
+    .message-video-grid{
+      display:grid;
+      grid-template-columns:repeat(2,minmax(0,1fr));
+      gap:14px;
+    }
+    .message-video-card{
+      padding:21px;
+      border-radius:22px;
+      border:1px solid var(--line);
+      background:#f9f8fa;
+    }
+    .message-video-card.featured{
+      background:linear-gradient(145deg,var(--accent-faint),#fff);
+      border-color:var(--accent-soft);
+    }
+    .message-video-service{
+      color:var(--accent-deep);
+      font-size:12px;
+      font-weight:950;
+      margin-bottom:10px;
+    }
+    .message-video-card h3{
+      margin:0;
+      font-size:20px;
+      line-height:1.35;
+      letter-spacing:-.8px;
+    }
+    .message-video-card p{
+      min-height:22px;
+      margin:7px 0 17px;
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.5;
+    }
+    .message-video-link{
+      display:block;
+      padding:13px 14px;
+      border-radius:15px;
+      background:var(--accent-soft);
+      color:#3f3340;
+      text-align:center;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:950;
+    }
+    @media(max-width:520px){
+      .daily-card-heading{align-items:flex-start}
+      .weekly-card-excerpt{max-width:100%}
+      .source-pdf-grid,.message-video-grid{grid-template-columns:1fr}
+      .weekly-prayer-content{padding:23px}
+    }
+
   </style>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="config.js"></script>
@@ -905,17 +1078,35 @@
     </article>
 
     <section class="image-first-section">
-      <article class="prayer-image-card hero-prayer-image" aria-label="오늘의 말씀 기도이미지">
-        <img id="heroPrayerImage" src="assets/daily_prayer_card.png" data-original-src="assets/daily_prayer_card.png" alt="문제를 피하지 말고 그 속으로 들어가 평생의 답을 찾아요. 주일 1부 말씀 중">
+      <div class="daily-card-heading">
+        <div>
+          <div class="message-title-label">오늘의 기도카드</div>
+          <h2 id="dailyCardHeading">이번 주 말씀을 오늘의 기도로</h2>
+        </div>
+        <div class="daily-card-day" id="dailyCardDay">SUNDAY</div>
+      </div>
+
+      <article class="weekly-prayer-card" aria-label="오늘의 말씀 기도카드">
+        <img class="weekly-prayer-bg" src="assets/weekly_prayer_bg.jpg" alt="">
+        <div class="weekly-prayer-shade"></div>
+        <div class="weekly-prayer-content">
+          <div class="weekly-card-source" id="dailyCardSource">주일 1부 말씀</div>
+          <div class="weekly-card-excerpt" id="dailyCardExcerpt"></div>
+          <div class="weekly-card-prayer" id="dailyCardPrayer"></div>
+        </div>
       </article>
 
-      <div class="daily-prayer" id="dailyPrayer"></div>
-
       <details class="source-card">
-        <summary>교회에서 제공한 기도카드 보기</summary>
-        <div class="source-wrap">
-          <img id="sourceImage" class="source-image" src="assets/prayer_1st.jpeg" alt="교회 제공 주일 1부 기도카드">
-          <p class="source-caption">원본 카드의 작은 글씨가 필요할 때만 펼쳐 볼 수 있도록 접어 두었습니다.</p>
+        <summary>교회에서 제공한 1부·2부 말씀자료 보기</summary>
+        <div class="source-pdf-grid">
+          <a class="source-pdf-card" id="firstPdfCard" href="assets/20260726_1ST_Garo_KR.pdf" target="_blank" rel="noopener">
+            <img src="assets/20260726_1ST_preview.png" alt="주일 1부 말씀자료 미리보기">
+            <span><strong>1부 말씀자료</strong><small>렘넌트 서밋의 길</small></span>
+          </a>
+          <a class="source-pdf-card" id="secondPdfCard" href="assets/20260726_2ND_Garo_KR.pdf" target="_blank" rel="noopener">
+            <img src="assets/20260726_2ND_preview.png" alt="주일 2부 말씀자료 미리보기">
+            <span><strong>2부 말씀자료</strong><small>초대교회의 대형 사건</small></span>
+          </a>
         </div>
       </details>
     </section>
@@ -938,23 +1129,39 @@
 
     <section class="section">
       <h2>이번 주 메시지 보기</h2>
-      <p class="sub">대예배와 중·고등국 강단 메시지를 보고, 아래에서 주간 말씀 요약 PDF까지 한 줄로 확인할 수 있습니다.</p>
+      <p class="sub">대예배와 렘넌트국 메시지 제목을 확인하고 영상을 바로 열 수 있습니다.</p>
 
-      <div class="video-links">
-        <a class="link primary-link" href="https://www.youtube.com/watch?v=9X73gLTNlBI" target="_blank" rel="noopener">1부 대예배<small>미래를 미리 본 자들</small></a>
-        <a class="link primary-link" href="https://www.youtube.com/watch?v=I-jAiJhP9LA" target="_blank" rel="noopener">2부 대예배<small>3경제를 회복하는 성전</small></a>
-        <a class="link" href="https://youtu.be/9FvwGXjtIhM?si=V25kp3iv49dhgbIV" target="_blank" rel="noopener">중등국 주일 강단<small>YouTube</small></a>
-        <a class="link" href="https://youtu.be/ecBE7l6vxvk?si=MFEC9VVfqNn5_SoL" target="_blank" rel="noopener">고등국 주일 강단<small>YouTube</small></a>
-      </div>
+      <div class="message-video-grid">
+        <article class="message-video-card featured">
+          <div class="message-video-service">주일 1부 예배</div>
+          <h3 id="firstVideoTitle">렘넌트 서밋의 길</h3>
+          <p id="firstVideoScripture">빌립보서 3:1-16</p>
+          <a class="message-video-link" id="firstVideoLink" href="https://youtu.be/4tL4ZPHEelM?si=rsF4aGK4ti0x0VEY" target="_blank" rel="noopener">1부 영상 보기</a>
+        </article>
 
-      <div class="pdf-strip" aria-label="주간 말씀 PDF">
-        <a class="pdf-link" href="assets/message_1st.pdf" target="_blank"><div><span>PDF 01</span>1부 말씀 요약</div></a>
-        <a class="pdf-link" href="assets/message_2nd.pdf" target="_blank"><div><span>PDF 02</span>2부 말씀 요약</div></a>
-        <a class="pdf-link" href="assets/weekly_summary.pdf" target="_blank"><div><span>PDF 03</span>주간 말씀 요약</div></a>
+        <article class="message-video-card featured">
+          <div class="message-video-service">주일 2부 예배</div>
+          <h3 id="secondVideoTitle">초대교회의 대형 사건</h3>
+          <p id="secondVideoScripture">사도행전 3:1-12</p>
+          <a class="message-video-link" id="secondVideoLink" href="https://youtu.be/AsLgutmp-q0?si=8ekqwBOU5U-wsp0p" target="_blank" rel="noopener">2부 영상 보기</a>
+        </article>
+
+        <article class="message-video-card">
+          <div class="message-video-service">중등국 예배</div>
+          <h3 id="middleVideoTitle">24통하는 무전기</h3>
+          <p id="middleVideoScripture">에베소서 6:18</p>
+          <a class="message-video-link" id="middleVideoLink" href="https://youtu.be/ZlX5eLp_6Qo?si=gdPneNLOf9ZXO_43" target="_blank" rel="noopener">중등국 영상 보기</a>
+        </article>
+
+        <article class="message-video-card">
+          <div class="message-video-service">고등국 예배</div>
+          <h3 id="highVideoTitle">고등부 연합 기도회</h3>
+          <p id="highVideoScripture">2026년 7월 26일</p>
+          <a class="message-video-link" id="highVideoLink" href="https://youtu.be/KVEMegOW7RU?si=6cR9nKIdkcb2s7x6" target="_blank" rel="noopener">고등국 영상 보기</a>
+        </article>
       </div>
     </section>
 
-    
     <section class="section" id="myPrayer">
       <h2>내가 붙잡은 말씀과 기도</h2>
       <p class="sub">한 칸에 오늘 마음에 남은 말씀과 나의 기도를 자유롭게 적어 보세요. 저장하면 다음에 같은 기기로 다시 접속했을 때 페이지 가장 위에서 먼저 만날 수 있습니다.</p>
@@ -1115,6 +1322,126 @@ let prayers = {
 예수 그리스도 이름으로 기도합니다. 아멘.`
 };
 
+
+const fallbackWeeklyDetails = {
+  first_title:"렘넌트 서밋의 길",
+  first_scripture:"빌립보서 3:1-16",
+  first_youtube_url:"https://youtu.be/4tL4ZPHEelM?si=rsF4aGK4ti0x0VEY",
+  second_title:"초대교회의 대형 사건",
+  second_scripture:"사도행전 3:1-12",
+  second_youtube_url:"https://youtu.be/AsLgutmp-q0?si=8ekqwBOU5U-wsp0p",
+  middle_title:"24통하는 무전기",
+  middle_scripture:"에베소서 6:18",
+  middle_youtube_url:"https://youtu.be/ZlX5eLp_6Qo?si=gdPneNLOf9ZXO_43",
+  high_title:"고등부 연합 기도회",
+  high_scripture:"2026년 7월 26일",
+  high_youtube_url:"https://youtu.be/KVEMegOW7RU?si=6cR9nKIdkcb2s7x6",
+  first_pdf_url:"assets/20260726_1ST_Garo_KR.pdf",
+  second_pdf_url:"assets/20260726_2ND_Garo_KR.pdf"
+};
+
+let weeklyDetails = { ...fallbackWeeklyDetails };
+
+let weeklyDailyCards = {
+  0:{
+    day:"SUNDAY",
+    heading:"이번 주 말씀을 예배로 시작해요",
+    source:"주일 1부 말씀 · 전체",
+    excerpt:"Power · Talent · Mission\n하나님이 준비하신 서밋의 길을 질문해요.",
+    prayer:"하나님, 예배 속에서 이번 주 말씀을 마음에 새기고 제가 가야 할 서밋의 길을 발견하게 해 주세요."
+  },
+  1:{
+    day:"MONDAY",
+    heading:"1부 서론을 붙잡아요",
+    source:"주일 1부 말씀 · 서론",
+    excerpt:"나에게 필요한 능력은 무엇인가?\n나의 달란트와 미션은 무엇인가?",
+    prayer:"하나님, 오늘 제가 가져야 할 Heavenly Power와 보좌에서 주신 Talent, 그리고 하나님이 맡기신 Mission을 발견하게 해 주세요."
+  },
+  2:{
+    day:"TUESDAY",
+    heading:"2부 서론을 붙잡아요",
+    source:"주일 2부 말씀 · 서론",
+    excerpt:"큰 기적보다 중요한 것은\n고통 속에서도 하나님의 계획을 본 믿음입니다.",
+    prayer:"하나님, 눈에 보이는 결과보다 절대 언약을 믿는 믿음을 붙잡게 해 주세요. 위기 속에서도 하나님이 앞서 보내시고 함께하심을 믿게 해 주세요."
+  },
+  3:{
+    day:"WEDNESDAY",
+    heading:"1부 본론을 붙잡아요",
+    source:"주일 1부 말씀 · 본론",
+    excerpt:"아침에는 보좌의 망대,\n낮에는 보좌의 여정,\n밤에는 보좌의 이정표를 만들어요.",
+    prayer:"하나님, 아침에는 나를 살리는 기도, 낮에는 만남 속에서 하나님의 비밀을 보는 눈, 밤에는 미래를 준비하는 작품을 남기게 해 주세요."
+  },
+  4:{
+    day:"THURSDAY",
+    heading:"2부 본론을 붙잡아요",
+    source:"주일 2부 말씀 · 본론",
+    excerpt:"나사렛 예수 그리스도의 이름으로\n일어나 걸으라.",
+    prayer:"하나님, 제 힘이 아니라 그리스도의 이름을 믿고 선포하게 해 주세요. 어두움 속에 빛을 전하고 낙심한 사람을 일으키는 믿음을 주세요."
+  },
+  5:{
+    day:"FRIDAY",
+    heading:"1부 결론을 붙잡아요",
+    source:"주일 1부 말씀 · 결론",
+    excerpt:"흔들려도 괜찮고,\n무너져도 괜찮아요.\n다시 일어나면 됩니다.",
+    prayer:"하나님, 흔들리고 넘어져도 포기하지 않고 다시 일어나게 해 주세요. 아침·낮·밤의 기도 속에서 망대와 여정과 이정표를 누리게 해 주세요."
+  },
+  6:{
+    day:"SATURDAY",
+    heading:"2부 결론을 붙잡아요",
+    source:"주일 2부 말씀 · 결론",
+    excerpt:"그리스도의 이름이 선포되면\n빛이 전달되고 흑암이 꺾입니다.",
+    prayer:"하나님, 그리스도의 이름을 믿음으로 붙잡게 해 주세요. 제가 가는 곳마다 빛이 비치고 사람을 살리는 증거가 나타나게 해 주세요."
+  }
+};
+
+function renderDailyWeeklyCard(){
+  const card = weeklyDailyCards[new Date().getDay()] || weeklyDailyCards[0];
+  const dayEl = document.getElementById("dailyCardDay");
+  const headingEl = document.getElementById("dailyCardHeading");
+  const sourceEl = document.getElementById("dailyCardSource");
+  const excerptEl = document.getElementById("dailyCardExcerpt");
+  const prayerEl = document.getElementById("dailyCardPrayer");
+
+  if(dayEl) dayEl.textContent = card.day || "";
+  if(headingEl) headingEl.textContent = card.heading || "";
+  if(sourceEl) sourceEl.textContent = card.source || "";
+  if(excerptEl) excerptEl.textContent = card.excerpt || "";
+  if(prayerEl) prayerEl.textContent = card.prayer || "";
+}
+
+function renderMessageLinks(){
+  const map = [
+    ["firstVideoTitle",weeklyDetails.first_title],
+    ["firstVideoScripture",weeklyDetails.first_scripture],
+    ["secondVideoTitle",weeklyDetails.second_title],
+    ["secondVideoScripture",weeklyDetails.second_scripture],
+    ["middleVideoTitle",weeklyDetails.middle_title],
+    ["middleVideoScripture",weeklyDetails.middle_scripture],
+    ["highVideoTitle",weeklyDetails.high_title],
+    ["highVideoScripture",weeklyDetails.high_scripture]
+  ];
+  map.forEach(([id,value])=>{
+    const el=document.getElementById(id);
+    if(el && value) el.textContent=value;
+  });
+
+  const links = [
+    ["firstVideoLink",weeklyDetails.first_youtube_url],
+    ["secondVideoLink",weeklyDetails.second_youtube_url],
+    ["middleVideoLink",weeklyDetails.middle_youtube_url],
+    ["highVideoLink",weeklyDetails.high_youtube_url],
+    ["firstPdfCard",weeklyDetails.first_pdf_url],
+    ["secondPdfCard",weeklyDetails.second_pdf_url]
+  ];
+  links.forEach(([id,value])=>{
+    const el=document.getElementById(id);
+    if(el && value) el.href=value;
+  });
+}
+
+renderDailyWeeklyCard();
+renderMessageLinks();
+
 async function loadPublishedWeeklyContent(){
   const cfg = window.PRAYON_SUPABASE || {};
   const baseUrl = String(cfg.url || "").replace(/\/+$/, "");
@@ -1149,9 +1476,61 @@ async function loadPublishedWeeklyContent(){
     selected = {
       ...selected,
       service: row.service_label || selected.service,
-      title: row.message_title || selected.title,
-      scripture: row.scripture || "",
+      title: row.first_title || row.message_title || selected.title,
+      scripture: row.first_scripture || row.scripture || "",
       key: row.key_sentence || "",
+    };
+
+    weeklyDetails = {
+      ...weeklyDetails,
+      first_title: row.first_title || row.message_title || weeklyDetails.first_title,
+      first_scripture: row.first_scripture || row.scripture || weeklyDetails.first_scripture,
+      first_youtube_url: row.first_youtube_url || weeklyDetails.first_youtube_url,
+      second_title: row.second_title || weeklyDetails.second_title,
+      second_scripture: row.second_scripture || weeklyDetails.second_scripture,
+      second_youtube_url: row.second_youtube_url || weeklyDetails.second_youtube_url,
+      middle_title: row.middle_title || weeklyDetails.middle_title,
+      middle_scripture: row.middle_scripture || weeklyDetails.middle_scripture,
+      middle_youtube_url: row.middle_youtube_url || weeklyDetails.middle_youtube_url,
+      high_title: row.high_title || weeklyDetails.high_title,
+      high_scripture: row.high_scripture || weeklyDetails.high_scripture,
+      high_youtube_url: row.high_youtube_url || weeklyDetails.high_youtube_url,
+      first_pdf_url: row.first_pdf_url || weeklyDetails.first_pdf_url,
+      second_pdf_url: row.second_pdf_url || weeklyDetails.second_pdf_url
+    };
+
+    weeklyDailyCards = {
+      ...weeklyDailyCards,
+      1:{
+        ...weeklyDailyCards[1],
+        excerpt:row.mon_excerpt || weeklyDailyCards[1].excerpt,
+        prayer:row.mon_prayer || weeklyDailyCards[1].prayer
+      },
+      2:{
+        ...weeklyDailyCards[2],
+        excerpt:row.tue_excerpt || weeklyDailyCards[2].excerpt,
+        prayer:row.tue_prayer || weeklyDailyCards[2].prayer
+      },
+      3:{
+        ...weeklyDailyCards[3],
+        excerpt:row.wed_excerpt || weeklyDailyCards[3].excerpt,
+        prayer:row.wed_prayer || weeklyDailyCards[3].prayer
+      },
+      4:{
+        ...weeklyDailyCards[4],
+        excerpt:row.thu_excerpt || weeklyDailyCards[4].excerpt,
+        prayer:row.thu_prayer || weeklyDailyCards[4].prayer
+      },
+      5:{
+        ...weeklyDailyCards[5],
+        excerpt:row.fri_excerpt || weeklyDailyCards[5].excerpt,
+        prayer:row.fri_prayer || weeklyDailyCards[5].prayer
+      },
+      6:{
+        ...weeklyDailyCards[6],
+        excerpt:row.sat_excerpt || weeklyDailyCards[6].excerpt,
+        prayer:row.sat_prayer || weeklyDailyCards[6].prayer
+      }
     };
 
     activeDailyPrayer = row.daily_prayer || activeDailyPrayer;
@@ -1165,6 +1544,8 @@ async function loadPublishedWeeklyContent(){
     };
 
     renderWeeklyMessage();
+    renderMessageLinks();
+    renderDailyWeeklyCard();
     if (dailyPrayerEl) dailyPrayerEl.textContent = activeDailyPrayer;
   } catch (error) {
     console.warn("주간 콘텐츠 연결 오류", error);

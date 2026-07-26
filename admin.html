@@ -86,6 +86,20 @@
       display:inline-flex;align-items:center;margin-left:8px;padding:4px 8px;
       border-radius:999px;background:#fff0f2;color:#b94353;font-size:11px;font-weight:900
     }
+    details.editor-group{
+      margin-top:20px;border:1px solid #eee4ea;border-radius:20px;background:#fffafb;overflow:hidden
+    }
+    details.editor-group summary{
+      cursor:pointer;list-style:none;padding:17px 18px;font-weight:950;color:#4e3b48
+    }
+    details.editor-group summary::-webkit-details-marker{display:none}
+    details.editor-group summary::after{content:"＋";float:right;color:#c36d9e}
+    details.editor-group[open] summary::after{content:"－"}
+    .editor-group-body{padding:0 18px 18px}
+    .day-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+    .day-editor-card{padding:15px;border:1px solid #eee4ea;border-radius:17px;background:#fff}
+    .day-editor-card h3{margin:0 0 10px;font-size:15px}
+    @media(max-width:680px){.day-editor-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -141,6 +155,24 @@
             <input id="scripture" type="text" maxlength="120">
           </div>
           <div>
+            <label for="firstYoutubeUrl">1부 YouTube 링크</label>
+            <input id="firstYoutubeUrl" type="url" maxlength="500">
+          </div>
+
+          <div>
+            <label for="secondTitle">2부 메시지 제목</label>
+            <input id="secondTitle" type="text" maxlength="180">
+          </div>
+          <div>
+            <label for="secondScripture">2부 성경 본문</label>
+            <input id="secondScripture" type="text" maxlength="120">
+          </div>
+          <div class="span-2">
+            <label for="secondYoutubeUrl">2부 YouTube 링크</label>
+            <input id="secondYoutubeUrl" type="url" maxlength="500">
+          </div>
+
+          <div>
             <label for="keySentence">이번 주 핵심문장</label>
             <input id="keySentence" type="text" maxlength="500">
           </div>
@@ -150,6 +182,98 @@
             <textarea id="dailyPrayer" maxlength="1500"></textarea>
           </div>
         </div>
+
+        <details class="editor-group">
+          <summary>중등국·고등국 영상 링크</summary>
+          <div class="editor-group-body form-grid">
+            <div>
+              <label for="middleTitle">중등국 메시지 제목</label>
+              <input id="middleTitle" type="text" maxlength="180">
+            </div>
+            <div>
+              <label for="middleScripture">중등국 본문·부제</label>
+              <input id="middleScripture" type="text" maxlength="120">
+            </div>
+            <div class="span-2">
+              <label for="middleYoutubeUrl">중등국 YouTube 링크</label>
+              <input id="middleYoutubeUrl" type="url" maxlength="500">
+            </div>
+            <div>
+              <label for="highTitle">고등국 메시지 제목</label>
+              <input id="highTitle" type="text" maxlength="180">
+            </div>
+            <div>
+              <label for="highScripture">고등국 본문·부제</label>
+              <input id="highScripture" type="text" maxlength="120">
+            </div>
+            <div class="span-2">
+              <label for="highYoutubeUrl">고등국 YouTube 링크</label>
+              <input id="highYoutubeUrl" type="url" maxlength="500">
+            </div>
+          </div>
+        </details>
+
+        <details class="editor-group">
+          <summary>1부·2부 PDF 링크</summary>
+          <div class="editor-group-body form-grid">
+            <div>
+              <label for="firstPdfUrl">1부 PDF 주소</label>
+              <input id="firstPdfUrl" type="text" maxlength="500">
+            </div>
+            <div>
+              <label for="secondPdfUrl">2부 PDF 주소</label>
+              <input id="secondPdfUrl" type="text" maxlength="500">
+            </div>
+          </div>
+        </details>
+
+        <details class="editor-group" open>
+          <summary>월요일~토요일 기도카드 문구</summary>
+          <div class="editor-group-body day-editor-grid">
+            <div class="day-editor-card">
+              <h3>월요일 · 1부 서론</h3>
+              <label for="monExcerpt">말씀 발췌</label>
+              <textarea id="monExcerpt" maxlength="1000"></textarea>
+              <label for="monPrayer">기도문</label>
+              <textarea id="monPrayer" maxlength="1500"></textarea>
+            </div>
+            <div class="day-editor-card">
+              <h3>화요일 · 2부 서론</h3>
+              <label for="tueExcerpt">말씀 발췌</label>
+              <textarea id="tueExcerpt" maxlength="1000"></textarea>
+              <label for="tuePrayer">기도문</label>
+              <textarea id="tuePrayer" maxlength="1500"></textarea>
+            </div>
+            <div class="day-editor-card">
+              <h3>수요일 · 1부 본론</h3>
+              <label for="wedExcerpt">말씀 발췌</label>
+              <textarea id="wedExcerpt" maxlength="1000"></textarea>
+              <label for="wedPrayer">기도문</label>
+              <textarea id="wedPrayer" maxlength="1500"></textarea>
+            </div>
+            <div class="day-editor-card">
+              <h3>목요일 · 2부 본론</h3>
+              <label for="thuExcerpt">말씀 발췌</label>
+              <textarea id="thuExcerpt" maxlength="1000"></textarea>
+              <label for="thuPrayer">기도문</label>
+              <textarea id="thuPrayer" maxlength="1500"></textarea>
+            </div>
+            <div class="day-editor-card">
+              <h3>금요일 · 1부 결론</h3>
+              <label for="friExcerpt">말씀 발췌</label>
+              <textarea id="friExcerpt" maxlength="1000"></textarea>
+              <label for="friPrayer">기도문</label>
+              <textarea id="friPrayer" maxlength="1500"></textarea>
+            </div>
+            <div class="day-editor-card">
+              <h3>토요일 · 2부 결론</h3>
+              <label for="satExcerpt">말씀 발췌</label>
+              <textarea id="satExcerpt" maxlength="1000"></textarea>
+              <label for="satPrayer">기도문</label>
+              <textarea id="satPrayer" maxlength="1500"></textarea>
+            </div>
+          </div>
+        </details>
 
         <div class="divider"></div>
 
@@ -278,6 +402,30 @@
     serviceLabel: document.getElementById("serviceLabel"),
     messageTitle: document.getElementById("messageTitle"),
     scripture: document.getElementById("scripture"),
+    firstYoutubeUrl: document.getElementById("firstYoutubeUrl"),
+    secondTitle: document.getElementById("secondTitle"),
+    secondScripture: document.getElementById("secondScripture"),
+    secondYoutubeUrl: document.getElementById("secondYoutubeUrl"),
+    middleTitle: document.getElementById("middleTitle"),
+    middleScripture: document.getElementById("middleScripture"),
+    middleYoutubeUrl: document.getElementById("middleYoutubeUrl"),
+    highTitle: document.getElementById("highTitle"),
+    highScripture: document.getElementById("highScripture"),
+    highYoutubeUrl: document.getElementById("highYoutubeUrl"),
+    firstPdfUrl: document.getElementById("firstPdfUrl"),
+    secondPdfUrl: document.getElementById("secondPdfUrl"),
+    monExcerpt: document.getElementById("monExcerpt"),
+    monPrayer: document.getElementById("monPrayer"),
+    tueExcerpt: document.getElementById("tueExcerpt"),
+    tuePrayer: document.getElementById("tuePrayer"),
+    wedExcerpt: document.getElementById("wedExcerpt"),
+    wedPrayer: document.getElementById("wedPrayer"),
+    thuExcerpt: document.getElementById("thuExcerpt"),
+    thuPrayer: document.getElementById("thuPrayer"),
+    friExcerpt: document.getElementById("friExcerpt"),
+    friPrayer: document.getElementById("friPrayer"),
+    satExcerpt: document.getElementById("satExcerpt"),
+    satPrayer: document.getElementById("satPrayer"),
     keySentence: document.getElementById("keySentence"),
     dailyPrayer: document.getElementById("dailyPrayer"),
     prayerWorry: document.getElementById("prayerWorry"),
@@ -290,17 +438,42 @@
   };
 
   const fallbackWeekly = {
+    message_date:"2026-07-26",
     service_label:"주일 1부 예배",
-    message_title:"미래를 미리 본 자들",
-    scripture:"사도행전 2:17-18",
-    key_sentence:"문제를 피하려고만 하지 말고, 그 속으로 들어가 하나님이 주시는 평생의 답을 찾아요.",
-    daily_prayer:"하나님, 제가 피하고 싶은 문제 앞에서 도망가지 않게 해 주세요. 바울처럼 그 속에서 기도하며 하나님이 주시는 평생의 답을 찾게 해 주세요.",
-    prayer_worry:"하나님, 지금 제 마음에 걱정과 불안이 있습니다. 말씀을 붙잡고 그 속에서 하나님의 답을 찾게 해 주세요. 두려움보다 하나님을 더 크게 바라보게 해 주세요. 예수 그리스도 이름으로 기도합니다. 아멘.",
-    prayer_hurt:"하나님, 지금 제 마음이 아프고 속상합니다. 상처를 하나님 앞에 솔직히 내려놓고, 이 시간을 치유와 사람을 살리는 힘으로 바꾸어 주세요. 예수 그리스도 이름으로 기도합니다. 아멘.",
-    prayer_anger:"하나님, 지금 제 안에 화가 있습니다. 감정대로 말하거나 행동하지 않고 말씀을 기억하며 하나님이 원하시는 방법으로 풀어가게 해 주세요. 예수 그리스도 이름으로 기도합니다. 아멘.",
-    prayer_courage:"하나님, 해야 할 일을 알지만 용기가 부족합니다. 하나님이 주시는 힘으로 한 걸음 나아가고 이 문제 속에서 새로운 시작을 발견하게 해 주세요. 예수 그리스도 이름으로 기도합니다. 아멘.",
-    prayer_thanks:"하나님, 오늘 감사할 일을 주셔서 감사합니다. 받은 힘과 기쁨을 친구와 나누고 사람을 살리는 선택을 하게 해 주세요. 예수 그리스도 이름으로 기도합니다. 아멘.",
-    prayer_friend:"하나님, 제 친구와 학교를 위해 기도합니다. 친구들의 이야기를 먼저 듣고 이해하며 제가 사람을 살리는 작은 시작이 되게 해 주세요. 예수 그리스도 이름으로 기도합니다. 아멘."
+    message_title:"렘넌트 서밋의 길",
+    scripture:"빌립보서 3:1-16",
+    first_youtube_url:"https://youtu.be/4tL4ZPHEelM?si=rsF4aGK4ti0x0VEY",
+    second_title:"초대교회의 대형 사건",
+    second_scripture:"사도행전 3:1-12",
+    second_youtube_url:"https://youtu.be/AsLgutmp-q0?si=8ekqwBOU5U-wsp0p",
+    middle_title:"24통하는 무전기",
+    middle_scripture:"에베소서 6:18",
+    middle_youtube_url:"https://youtu.be/ZlX5eLp_6Qo?si=gdPneNLOf9ZXO_43",
+    high_title:"고등부 연합 기도회",
+    high_scripture:"2026년 7월 26일",
+    high_youtube_url:"https://youtu.be/KVEMegOW7RU?si=6cR9nKIdkcb2s7x6",
+    first_pdf_url:"assets/20260726_1ST_Garo_KR.pdf",
+    second_pdf_url:"assets/20260726_2ND_Garo_KR.pdf",
+    key_sentence:"Power, Talent, Mission을 질문하며 하나님이 준비하신 렘넌트 서밋의 길을 시작해요.",
+    daily_prayer:"하나님, 이번 주 말씀을 제 삶에 연결하고 아침·낮·밤의 기도 속에서 나와 세상과 미래를 살리는 길을 걷게 해 주세요.",
+    mon_excerpt:"나에게 필요한 능력은 무엇인가? 나의 달란트와 미션은 무엇인가?",
+    mon_prayer:"하나님, 오늘 제가 가져야 할 Heavenly Power와 보좌에서 주신 Talent, 그리고 하나님이 맡기신 Mission을 발견하게 해 주세요.",
+    tue_excerpt:"큰 기적보다 중요한 것은 고통 속에서도 하나님의 계획을 본 믿음입니다.",
+    tue_prayer:"하나님, 눈에 보이는 결과보다 절대 언약을 믿는 믿음을 붙잡게 해 주세요. 위기 속에서도 하나님이 앞서 보내시고 함께하심을 믿게 해 주세요.",
+    wed_excerpt:"아침에는 보좌의 망대, 낮에는 보좌의 여정, 밤에는 보좌의 이정표를 만들어요.",
+    wed_prayer:"하나님, 아침에는 나를 살리는 기도, 낮에는 만남 속에서 하나님의 비밀을 보는 눈, 밤에는 미래를 준비하는 작품을 남기게 해 주세요.",
+    thu_excerpt:"나사렛 예수 그리스도의 이름으로 일어나 걸으라.",
+    thu_prayer:"하나님, 제 힘이 아니라 그리스도의 이름을 믿고 선포하게 해 주세요. 어두움 속에 빛을 전하고 낙심한 사람을 일으키는 믿음을 주세요.",
+    fri_excerpt:"흔들려도 괜찮고 무너져도 괜찮아요. 다시 일어나면 됩니다.",
+    fri_prayer:"하나님, 흔들리고 넘어져도 포기하지 않고 다시 일어나게 해 주세요. 아침·낮·밤의 기도 속에서 망대와 여정과 이정표를 누리게 해 주세요.",
+    sat_excerpt:"그리스도의 이름이 선포되면 빛이 전달되고 흑암이 꺾입니다.",
+    sat_prayer:"하나님, 그리스도의 이름을 믿음으로 붙잡게 해 주세요. 제가 가는 곳마다 빛이 비치고 사람을 살리는 증거가 나타나게 해 주세요.",
+    prayer_worry:"하나님, 흔들림과 갈등 속에서도 제가 길을 찾고 있음을 믿게 해 주세요. 보좌에서 주시는 힘으로 오늘의 문제를 이기게 해 주세요.",
+    prayer_hurt:"하나님, 상처와 고통 속에도 하나님의 계획이 있음을 보게 해 주세요. 그리스도의 이름으로 제 마음을 일으켜 주세요.",
+    prayer_anger:"하나님, 감정과 사람의 말보다 언약을 먼저 붙잡게 해 주세요. 제 마음을 정복하고 사람을 살리는 선택을 하게 해 주세요.",
+    prayer_courage:"하나님, 나사렛 예수 그리스도의 이름을 믿고 담대하게 일어나 걷게 해 주세요.",
+    prayer_thanks:"하나님, 제게 주신 Power와 Talent와 Mission을 감사로 발견하게 해 주세요.",
+    prayer_friend:"하나님, 친구와 학교에 그리스도의 빛이 비치게 하시고 제가 사람을 일으키는 믿음의 증인이 되게 해 주세요."
   };
 
   function todayDate(){
@@ -312,8 +485,32 @@
     weeklyFields.id.value = data.id || "";
     weeklyFields.messageDate.value = data.message_date || todayDate();
     weeklyFields.serviceLabel.value = data.service_label || "주일 1부 예배";
-    weeklyFields.messageTitle.value = data.message_title || "";
-    weeklyFields.scripture.value = data.scripture || "";
+    weeklyFields.messageTitle.value = data.first_title || data.message_title || "";
+    weeklyFields.scripture.value = data.first_scripture || data.scripture || "";
+    weeklyFields.firstYoutubeUrl.value = data.first_youtube_url || "";
+    weeklyFields.secondTitle.value = data.second_title || "";
+    weeklyFields.secondScripture.value = data.second_scripture || "";
+    weeklyFields.secondYoutubeUrl.value = data.second_youtube_url || "";
+    weeklyFields.middleTitle.value = data.middle_title || "";
+    weeklyFields.middleScripture.value = data.middle_scripture || "";
+    weeklyFields.middleYoutubeUrl.value = data.middle_youtube_url || "";
+    weeklyFields.highTitle.value = data.high_title || "";
+    weeklyFields.highScripture.value = data.high_scripture || "";
+    weeklyFields.highYoutubeUrl.value = data.high_youtube_url || "";
+    weeklyFields.firstPdfUrl.value = data.first_pdf_url || "";
+    weeklyFields.secondPdfUrl.value = data.second_pdf_url || "";
+    weeklyFields.monExcerpt.value = data.mon_excerpt || "";
+    weeklyFields.monPrayer.value = data.mon_prayer || "";
+    weeklyFields.tueExcerpt.value = data.tue_excerpt || "";
+    weeklyFields.tuePrayer.value = data.tue_prayer || "";
+    weeklyFields.wedExcerpt.value = data.wed_excerpt || "";
+    weeklyFields.wedPrayer.value = data.wed_prayer || "";
+    weeklyFields.thuExcerpt.value = data.thu_excerpt || "";
+    weeklyFields.thuPrayer.value = data.thu_prayer || "";
+    weeklyFields.friExcerpt.value = data.fri_excerpt || "";
+    weeklyFields.friPrayer.value = data.fri_prayer || "";
+    weeklyFields.satExcerpt.value = data.sat_excerpt || "";
+    weeklyFields.satPrayer.value = data.sat_prayer || "";
     weeklyFields.keySentence.value = data.key_sentence || "";
     weeklyFields.dailyPrayer.value = data.daily_prayer || "";
     weeklyFields.prayerWorry.value = data.prayer_worry || "";
@@ -332,6 +529,32 @@
       service_label: weeklyFields.serviceLabel.value.trim(),
       message_title: weeklyFields.messageTitle.value.trim(),
       scripture: weeklyFields.scripture.value.trim(),
+      first_title: weeklyFields.messageTitle.value.trim(),
+      first_scripture: weeklyFields.scripture.value.trim(),
+      first_youtube_url: weeklyFields.firstYoutubeUrl.value.trim(),
+      second_title: weeklyFields.secondTitle.value.trim(),
+      second_scripture: weeklyFields.secondScripture.value.trim(),
+      second_youtube_url: weeklyFields.secondYoutubeUrl.value.trim(),
+      middle_title: weeklyFields.middleTitle.value.trim(),
+      middle_scripture: weeklyFields.middleScripture.value.trim(),
+      middle_youtube_url: weeklyFields.middleYoutubeUrl.value.trim(),
+      high_title: weeklyFields.highTitle.value.trim(),
+      high_scripture: weeklyFields.highScripture.value.trim(),
+      high_youtube_url: weeklyFields.highYoutubeUrl.value.trim(),
+      first_pdf_url: weeklyFields.firstPdfUrl.value.trim(),
+      second_pdf_url: weeklyFields.secondPdfUrl.value.trim(),
+      mon_excerpt: weeklyFields.monExcerpt.value.trim(),
+      mon_prayer: weeklyFields.monPrayer.value.trim(),
+      tue_excerpt: weeklyFields.tueExcerpt.value.trim(),
+      tue_prayer: weeklyFields.tuePrayer.value.trim(),
+      wed_excerpt: weeklyFields.wedExcerpt.value.trim(),
+      wed_prayer: weeklyFields.wedPrayer.value.trim(),
+      thu_excerpt: weeklyFields.thuExcerpt.value.trim(),
+      thu_prayer: weeklyFields.thuPrayer.value.trim(),
+      fri_excerpt: weeklyFields.friExcerpt.value.trim(),
+      fri_prayer: weeklyFields.friPrayer.value.trim(),
+      sat_excerpt: weeklyFields.satExcerpt.value.trim(),
+      sat_prayer: weeklyFields.satPrayer.value.trim(),
       key_sentence: weeklyFields.keySentence.value.trim(),
       daily_prayer: weeklyFields.dailyPrayer.value.trim(),
       prayer_worry: weeklyFields.prayerWorry.value.trim(),
