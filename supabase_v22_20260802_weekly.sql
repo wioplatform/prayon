@@ -1,0 +1,93 @@
+-- PRAY ON v22 — 2026-08-02 주간 메시지 등록
+-- 기존 일기·익명기도·이전 주차 데이터는 삭제하지 않습니다.
+
+alter table public.weekly_content
+  add column if not exists first_title text,
+  add column if not exists first_scripture text,
+  add column if not exists first_youtube_url text,
+  add column if not exists second_title text,
+  add column if not exists second_scripture text,
+  add column if not exists second_youtube_url text,
+  add column if not exists middle_title text,
+  add column if not exists middle_scripture text,
+  add column if not exists middle_youtube_url text,
+  add column if not exists high_title text,
+  add column if not exists high_scripture text,
+  add column if not exists high_youtube_url text,
+  add column if not exists first_pdf_url text,
+  add column if not exists second_pdf_url text,
+  add column if not exists mon_excerpt text,
+  add column if not exists mon_prayer text,
+  add column if not exists tue_excerpt text,
+  add column if not exists tue_prayer text,
+  add column if not exists wed_excerpt text,
+  add column if not exists wed_prayer text,
+  add column if not exists thu_excerpt text,
+  add column if not exists thu_prayer text,
+  add column if not exists fri_excerpt text,
+  add column if not exists fri_prayer text,
+  add column if not exists sat_excerpt text,
+  add column if not exists sat_prayer text;
+
+update public.weekly_content
+set is_published=false, updated_at=now()
+where message_date <> date '2026-08-02' and is_published=true;
+
+insert into public.weekly_content (
+  message_date,service_label,message_title,scripture,
+  first_title,first_scripture,first_youtube_url,
+  second_title,second_scripture,second_youtube_url,
+  middle_title,middle_scripture,middle_youtube_url,
+  high_title,high_scripture,high_youtube_url,
+  first_pdf_url,second_pdf_url,key_sentence,daily_prayer,
+  mon_excerpt,mon_prayer,tue_excerpt,tue_prayer,wed_excerpt,wed_prayer,
+  thu_excerpt,thu_prayer,fri_excerpt,fri_prayer,sat_excerpt,sat_prayer,
+  prayer_worry,prayer_hurt,prayer_anger,prayer_courage,prayer_thanks,prayer_friend,
+  is_published,updated_at
+) values (
+  date '2026-08-02','주일 1부 예배','3경제 회복의 주역들','사도행전 4:32-37',
+  '3경제 회복의 주역들','사도행전 4:32-37','https://youtu.be/0ldTyQbz-G0?si=4Txe1KlJmQxMhN02',
+  '예배의 성공은 모든 것의 성공','사도행전 6:1-7','https://youtu.be/4If2zc99d0k?si=0s_B6kspmSC9d62c',
+  '위기 때 분별력','빌립보서 1:8-10','https://youtu.be/Gzp8ebFcaEM?si=3imNyfbbV_MvInwp',
+  '고등국 예배','2026년 8월 2일','https://youtu.be/IM4uchRaLzQ?si=pH1O0erS5b8J7ljF',
+  'assets/20260802_1ST_Garo_KR.pdf','assets/20260802_2ND_Garo_KR.pdf',
+  '예배와 삶과 서밋의 기도 속에서 말씀·기도·업의 300%를 준비해요.',
+  '하나님, 이번 주 예배 속에서 제게 주시는 미션을 발견하고 말씀과 기도와 삶이 하나 되게 해 주세요.',
+  '시대적인 말씀과 기도 응답을 보고, 말씀·기도·업의 300%를 준비해요.',
+  '하나님, 예배와 말씀을 놓치지 않고 제게 주신 시대적인 미션을 발견하게 해 주세요. Heavenly, Thronely, Eternally의 배경과 24·25·00의 시간을 누리게 해 주세요.',
+  '함께 예배하는 기도, 삶을 통한 기도, 서밋의 기도를 누려요.',
+  '하나님, 예배 속에서 미션을 찾고 아침에는 망대, 낮에는 여정, 밤에는 이정표를 누리게 해 주세요. 모든 생각과 호흡을 기도로 바꾸게 해 주세요.',
+  'Always · WITH · Healing. 빛의 경제, 렘넌트 경제, 선교 경제를 회복해요.',
+  '하나님, 예배와 삶의 기도 속에서 Always, WITH, Healing의 시스템을 누리게 해 주세요. 제게 맡기신 학업과 일을 300%로 준비하며 사람과 현장을 살리게 해 주세요.',
+  '믿음 충만, 성령 충만, 지혜 충만. 이때부터 현장이 살아납니다.',
+  '하나님, 제 안에 믿음과 성령과 지혜가 충만하게 해 주세요. 어디에 있든 나를 살리고 현장을 밝히며 미래를 보는 세 가지 캠프를 누리게 해 주세요.',
+  '미루지 말고 지금 시작해요. 하나님이 주신 것을 300%로 준비해요.',
+  '하나님, 해야 할 일을 미루지 않고 오늘부터 말씀과 기도와 업을 준비하게 해 주세요. 제 삶을 복음과 전도와 선교를 위해 아름답게 사용하게 해 주세요.',
+  '전도와 선교는 먼저 보는 것입니다. 성공 뒤의 것을 준비해요.',
+  '하나님, 눈앞의 성공만 목표로 삼지 않고 그리스도께 잡힌 것을 향해 가게 해 주세요. 하나님의 시간표를 보며 땅끝까지 이어지는 길을 걷게 해 주세요.',
+  '하나님, 걱정이 밀려올 때 제 생각에만 갇히지 않고 모든 생각과 호흡을 기도로 바꾸게 해 주세요. 예배 속에서 주신 미션을 붙잡게 해 주세요.',
+  '하나님, 마음이 아플 때 믿음과 성령과 지혜로 저를 채워 주세요. 상처에 머물지 않고 나와 현장을 살리는 빛을 비추게 해 주세요.',
+  '하나님, 감정에 끌려가지 않고 말씀과 기도로 제 마음을 다스리게 해 주세요. 만남을 세계를 살리는 여정으로 보게 해 주세요.',
+  '하나님, 오늘 해야 할 일을 미루지 않고 제게 맡기신 것을 300%로 준비할 용기를 주세요.',
+  '하나님, 예배와 말씀과 기도를 누릴 수 있음에 감사합니다. 제 삶에 주신 Always, WITH, Healing의 응답을 발견하게 해 주세요.',
+  '하나님, 친구들이 위기 속에서 분별력을 얻고 믿음과 성령과 지혜로 충만하게 해 주세요. 제가 사람을 살리는 빛의 캠프가 되게 해 주세요.',
+  true,now()
+)
+on conflict (message_date) do update set
+  service_label=excluded.service_label,message_title=excluded.message_title,scripture=excluded.scripture,
+  first_title=excluded.first_title,first_scripture=excluded.first_scripture,first_youtube_url=excluded.first_youtube_url,
+  second_title=excluded.second_title,second_scripture=excluded.second_scripture,second_youtube_url=excluded.second_youtube_url,
+  middle_title=excluded.middle_title,middle_scripture=excluded.middle_scripture,middle_youtube_url=excluded.middle_youtube_url,
+  high_title=excluded.high_title,high_scripture=excluded.high_scripture,high_youtube_url=excluded.high_youtube_url,
+  first_pdf_url=excluded.first_pdf_url,second_pdf_url=excluded.second_pdf_url,
+  key_sentence=excluded.key_sentence,daily_prayer=excluded.daily_prayer,
+  mon_excerpt=excluded.mon_excerpt,mon_prayer=excluded.mon_prayer,
+  tue_excerpt=excluded.tue_excerpt,tue_prayer=excluded.tue_prayer,
+  wed_excerpt=excluded.wed_excerpt,wed_prayer=excluded.wed_prayer,
+  thu_excerpt=excluded.thu_excerpt,thu_prayer=excluded.thu_prayer,
+  fri_excerpt=excluded.fri_excerpt,fri_prayer=excluded.fri_prayer,
+  sat_excerpt=excluded.sat_excerpt,sat_prayer=excluded.sat_prayer,
+  prayer_worry=excluded.prayer_worry,prayer_hurt=excluded.prayer_hurt,
+  prayer_anger=excluded.prayer_anger,prayer_courage=excluded.prayer_courage,
+  prayer_thanks=excluded.prayer_thanks,prayer_friend=excluded.prayer_friend,
+  is_published=true,updated_at=now();
