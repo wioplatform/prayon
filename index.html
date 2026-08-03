@@ -1585,7 +1585,7 @@
     </section>
 
     <p class="admin-entry"><a href="admin.html">관리자</a></p>
-    <p class="footer-note">AI가 하나님의 뜻을 알려주는 페이지가 아닙니다.<br>이번 주 강단 말씀을 기억하고 기도를 이어가도록 돕는 도구입니다.</p>
+    <p class="footer-note">AI가 하나님의 뜻을 알려주는 페이지가 아닙니다.<br>이번 주 강단 말씀을 기억하고 기도를 이어가도록 돕는 도구입니다.<br><small>PRAY ON v23 · 2026.08.02</small></p>
   </div>
 
   <nav class="bottom four-nav">
@@ -1597,22 +1597,24 @@
 </main>
 
 <script>
+const CURRENT_WEEK_DATE = "2026-08-02";
+
 const messages = [
   {
     service:"주일 1부 예배",
-    title:"렘넌트 서밋의 길",
-    scripture:"빌립보서 3:1-16",
-    image:"assets/20260726_1ST_prayer.jpeg",
-    key:"Power, Talent, Mission을 질문하며\n하나님이 준비하신 렘넌트 서밋의 길을 시작해요.",
-    official:"하나님, 렘넌트 서밋의 길을 따라 하나님이 준비하신 능력과 달란트와 미션을 찾게 해 주세요."
+    title:"3경제 회복의 주역들",
+    scripture:"사도행전 4:32-37",
+    image:"assets/weekly_prayer_bg.jpg",
+    key:"예배와 삶과 서밋의 기도 속에서 말씀·기도·업의 300%를 준비해요.",
+    official:"하나님, 이번 주 예배 속에서 제게 주시는 미션을 발견하고 말씀과 기도와 삶이 하나 되게 해 주세요."
   },
   {
     service:"주일 2부 예배",
-    title:"3경제를 회복하는 성전",
-    scripture:"사도행전 2:42-47",
-    image:"assets/prayer_2nd.jpeg",
-    key:"다른 보혜사와 함께 기도로 다른 세계를 누리고,\n빛의 경제·렘넌트 경제·선교 경제를 회복합니다.",
-    official:"하나님, 절대 불가능 속에서도 기도로 다른 세계를 누리고 3경제를 회복하게 해 주세요."
+    title:"예배의 성공은 모든 것의 성공",
+    scripture:"사도행전 6:1-7",
+    image:"assets/weekly_prayer_bg.jpg",
+    key:"함께 예배하는 기도와 삶의 기도, 서밋의 기도를 누려요.",
+    official:"하나님, 예배 속에서 미션을 찾고 아침에는 망대, 낮에는 여정, 밤에는 이정표를 누리게 해 주세요."
   }
 ];
 
@@ -1844,7 +1846,7 @@ async function loadPublishedWeeklyContent(){
       baseUrl + "/rest/v1/weekly_content"
       + "?select=*"
       + "&is_published=eq.true"
-      + "&order=message_date.desc"
+      + "&message_date=eq." + encodeURIComponent(CURRENT_WEEK_DATE)
       + "&limit=1",
       {
         headers:{
@@ -1861,9 +1863,19 @@ async function loadPublishedWeeklyContent(){
     }
 
     const rows = await response.json();
-    if (!Array.isArray(rows) || !rows.length) return;
+    if (!Array.isArray(rows) || !rows.length) {
+      console.info("이번 주 DB 데이터가 없어 번들된 최신 말씀을 표시합니다.");
+      return;
+    }
 
     const row = rows[0];
+
+    // 이전 주차 DB 데이터가 최신 번들 콘텐츠를 덮어쓰는 일을 막습니다.
+    if (!row.message_date || String(row.message_date) !== CURRENT_WEEK_DATE) {
+      console.warn("현재 주차와 다른 주간 콘텐츠를 무시했습니다.", row.message_date);
+      return;
+    }
+
     selected = {
       ...selected,
       service: row.service_label || selected.service,
