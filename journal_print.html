@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>PRAY ON · 연간 말씀 일기</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="config.js"></script>
+  <style>
+    *{box-sizing:border-box}
+    body{
+      margin:0;background:#eee;color:#242228;
+      font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Segoe UI",sans-serif;
+    }
+    .toolbar{
+      position:sticky;top:0;z-index:10;
+      display:flex;justify-content:space-between;align-items:center;gap:12px;
+      padding:14px 18px;background:rgba(255,255,255,.95);
+      border-bottom:1px solid #ddd;backdrop-filter:blur(12px);
+    }
+    .toolbar h1{margin:0;font-size:20px}
+    .toolbar-actions{display:flex;gap:8px}
+    button,select{
+      border:1px solid #ddd;border-radius:12px;padding:10px 13px;
+      background:white;font:inherit;font-weight:800;
+    }
+    .book{width:min(100%,900px);margin:22px auto}
+    .week-cover,.entry-page{
+      width:148mm;min-height:210mm;margin:0 auto 18px;padding:15mm;
+      background:#fff;box-shadow:0 12px 36px rgba(0,0,0,.12);
+    }
+    .week-cover{
+      display:flex;flex-direction:column;justify-content:center;
+      background:linear-gradient(145deg,#fff7fb,#fff);
+    }
+    .week-cover .label{color:#c5689e;font-size:13px;font-weight:900}
+    .week-cover h2{font-size:30px;line-height:1.35;margin:12px 0}
+    .week-cover p{color:#777;line-height:1.7}
+    .entry-date{color:#c5689e;font-size:13px;font-weight:900}
+    .entry-message{margin:8px 0 18px;color:#6f6971;font-size:12px;line-height:1.6}
+    .entry-content{white-space:pre-wrap;font-size:16px;line-height:1.95}
+    .entry-photo{width:100%;margin-top:18px;border-radius:12px;display:block}
+    .status{text-align:center;padding:30px;color:#777}
+    @page{size:A5 portrait;margin:0}
+    @media print{
+      body{background:white}
+      .toolbar{display:none}
+      .book{width:auto;margin:0}
+      .week-cover,.entry-page{
+        margin:0;box-shadow:none;page-break-after:always;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <h1>PRAY ON · 연간 말씀 일기</h1>
+    <div class="toolbar-actions">
+      <select id="yearSelect"></select>
+      <button id="reloadBtn" type="button">불러오기</button>
+      <button id="printBtn" type="button">인쇄 / PDF 저장</button>
+    </div>
+  </div>
+  <main class="book" id="book">
+    <div class="status" id="status">로그인 상태를 확인하는 중입니다.</div>
+  </main>
+
+<script>
+(async function(){
+  const cfg = window.PRAYON_SUPABASE || {};
+  const client = window.supabase.createClient(cfg.url,cfg.publishableKey,{
+    auth:{
+      persistSession:true,
+      autoRefreshToken:true,
+      detectSessionInUrl:true,
+      storageKey:"prayon-auth-session"
+    }
+  });
+
+  const book = document.getElementById("book");
+  const status = document.getElementById("status");
+  const yearSelect = document.getElementById("yearSelect");
+
+  const currentYear = new Date().getFullYear();
+  for(let year=currentYear;year>=2025;year--){
+    const option=document.createElement("option");
+    option.value=year;
+    option.textContent=`${year}년`;
+    yearSelect.append(option);
+  }
+
+  function weekStart(value){
+    const d=new Date(value+"T12:00:00");
+    d.setDate(d.getDate()-d.getDay());
+    return d.toISOString().slice(0,10);
+  }
+
+  function weekEnd(start){
+    const d=new Date(start+"T12:00:00");
+    d.setDate(d.getDate()+6);
+    return d.toISOString().slice(0,10);
+  }
+
+  function formatDate(value){
+    return new Intl.DateTimeFormat("ko-KR",{
+      year:"numeric",month:"long",day:"numeric",weekday:"long"
+    }).format(new Date(value+"T12:00:00"));
+  }
+
+  async function masterUrl(path){
+    if(!path) return "";
+    const {data,error}=await client.storage.from("private-journal").createSignedUrl(path,3600);
+    return error ? "" : data.signedUrl;
+  }
+
+  async function render(){
+    const {data:{session}}=await client.auth.getSession();
+    if(!session?.user){
+      status.textContent="PRAY ON에서 먼저 로그인해 주세요.";
+      return;
+    }
+
+    const year=Number(yearSelect.value || currentYear);
+    status.textContent="연간 기록을 불러오는 중입니다.";
+    book.innerHTML='<div class="status">연간 기록을 불러오는 중입니다.</div>';
+
+    const {data,error}=await client
+      .from("personal_journal_entries")
+      .select("*")
+      .eq("user_id",session.user.id)
+      .gte("entry_date",`${year}-01-01`)
+      .lte("entry_date",`${year}-12-31`)
+      .order("entry_date",{ascending:true});
+
+    if(error){
+      book.innerHTML=`<div class="status">불러오지 못했습니다: ${error.message}</div>`;
+      return;
+    }
+
+    book.innerHTML="";
+    if(!data?.length){
+      book.innerHTML='<div class="status">이 연도에는 기록이 없습니다.</div>';
+      return;
+    }
+
+    let currentWeek="";
+    for(const entry of data){
+      const start=weekStart(entry.entry_date);
+      if(start!==currentWeek){
+        currentWeek=start;
+        const cover=document.createElement("section");
+        cover.className="week-cover";
+        const titles=[entry.first_title_snapshot,entry.second_title_snapshot].filter(Boolean);
+        cover.innerHTML=`
+          <div class="label">${start} ~ ${weekEnd(start)}</div>
+          <h2>${titles.join("<br>") || "이번 주 말씀"}</h2>
+          <p>이 주의 말씀과 일상 기록</p>
+        `;
+        book.append(cover);
+      }
+
+      const page=document.createElement("article");
+      page.className="entry-page";
+
+      const date=document.createElement("div");
+      date.className="entry-date";
+      date.textContent=formatDate(entry.entry_date);
+
+      const message=document.createElement("div");
+      message.className="entry-message";
+      message.textContent=[entry.first_title_snapshot,entry.second_title_snapshot].filter(Boolean).join(" / ");
+
+      const content=document.createElement("div");
+      content.className="entry-content";
+      content.textContent=entry.content || "";
+
+      page.append(date,message,content);
+
+      if(entry.image_master_path){
+        const url=await masterUrl(entry.image_master_path);
+        if(url){
+          const img=document.createElement("img");
+          img.className="entry-photo";
+          img.src=url;
+          img.alt=`${entry.entry_date} 기록 사진`;
+          page.append(img);
+        }
+      }
+
+      book.append(page);
+    }
+  }
+
+  document.getElementById("reloadBtn").addEventListener("click",render);
+  document.getElementById("printBtn").addEventListener("click",()=>window.print());
+  render();
+})();
+</script>
+</body>
+</html>
