@@ -1387,7 +1387,7 @@
         <button class="swatch" data-color="#f7a7d8" data-deep="#de72b2" style="background:#f7a7d8"></button>
       </div>
     </header>
-<section class="journal-shell" id="journal">
+<section class="journal-shell" id="journal" hidden>
       <div class="journal-login-card" id="journalLoginCard">
         <div>
           <div class="journal-kicker">나의 말씀 일기</div>
@@ -1464,9 +1464,9 @@
 
     <article class="message-title-card top-message-card" id="word" aria-label="이번 주 강단 메시지">
       <div class="message-title-label">이번 주 강단 메시지</div>
-      <h1 id="title">모세의 망대</h1>
-      <div class="message-title-meta" id="tag">주일 1부 예배 · 출애굽기 2:1-10</div>
-      <p id="key">하나님은 모세의 시작부터 생명을 지키시고 길을 준비하셨습니다.</p>
+      <h1 id="title">그날의 아침</h1>
+      <div class="message-title-meta" id="tag">주일 1부 예배 · 출애굽기 12:12</div>
+      <p id="key">정확한 언약은 반드시 성취되고, 그날은 운명과 능력과 미래를 바꾸는 시작이 됩니다.</p>
     </article>
 
     <section class="image-first-section">
@@ -1498,13 +1498,13 @@
 <details class="source-card">
         <summary>교회에서 제공한 1부·2부 말씀자료 보기</summary>
         <div class="source-pdf-grid">
-          <a class="source-pdf-card" id="firstPdfCard" href="assets/20260823_1ST_Garo_KR.pdf" target="_blank" rel="noopener">
-            <img src="assets/20260823_1ST_preview.png" alt="주일 1부 말씀자료 미리보기">
-            <span><strong>1부 말씀자료</strong><small>모세의 망대 · 출애굽기 2:1-10</small></span>
+          <a class="source-pdf-card" id="firstPdfCard" href="assets/20260830_1ST_Garo_KR.pdf" target="_blank" rel="noopener">
+            <img src="assets/20260830_1ST_preview.png" alt="주일 1부 말씀자료 미리보기">
+            <span><strong>1부 말씀자료</strong><small>그날의 아침 · 출애굽기 12:12</small></span>
           </a>
-          <a class="source-pdf-card" id="secondPdfCard" href="assets/20260823_2ND_Garo_KR.pdf" target="_blank" rel="noopener">
-            <img src="assets/20260823_2ND_preview.png" alt="주일 2부 말씀자료 미리보기">
-            <span><strong>2부 말씀자료</strong><small>바로 왕에게 고하라 · 출애굽기 3:1-18</small></span>
+          <a class="source-pdf-card" id="secondPdfCard" href="assets/20260830_2ND_Garo_KR.pdf" target="_blank" rel="noopener">
+            <img src="assets/20260830_2ND_preview.png" alt="주일 2부 말씀자료 미리보기">
+            <span><strong>2부 말씀자료</strong><small>처음 주신 성전 · 출애굽기 23:14-17</small></span>
           </a>
         </div>
       </details>
@@ -1533,30 +1533,30 @@
       <div class="message-video-grid">
         <article class="message-video-card featured">
           <div class="message-video-service">주일 1부 예배</div>
-          <h3 id="firstVideoTitle">모세의 망대</h3>
-          <p id="firstVideoScripture">출애굽기 2:1-10</p>
-          <a class="message-video-link" id="firstVideoLink" href="https://www.youtube.com/watch?v=irH96PSrBy4" target="_blank" rel="noopener">1부 영상 보기</a>
+          <h3 id="firstVideoTitle">그날의 아침</h3>
+          <p id="firstVideoScripture">출애굽기 12:12</p>
+          <a class="message-video-link" id="firstVideoLink" href="https://www.youtube.com/watch?v=5BrkWcTuVRw" target="_blank" rel="noopener">1부 영상 보기</a>
         </article>
 
         <article class="message-video-card featured">
           <div class="message-video-service">주일 2부 예배</div>
-          <h3 id="secondVideoTitle">바로 왕에게 고하라</h3>
-          <p id="secondVideoScripture">출애굽기 3:1-18</p>
-          <a class="message-video-link" id="secondVideoLink" href="https://www.youtube.com/watch?v=i_BqOTLLb3M" target="_blank" rel="noopener">2부 영상 보기</a>
+          <h3 id="secondVideoTitle">처음 주신 성전</h3>
+          <p id="secondVideoScripture">출애굽기 23:14-17</p>
+          <a class="message-video-link" id="secondVideoLink" href="https://www.youtube.com/watch?v=YrKqCidT6HA" target="_blank" rel="noopener">2부 영상 보기</a>
         </article>
 
-        <article class="message-video-card">
+        <article class="message-video-card" id="middleVideoCard" hidden>
           <div class="message-video-service">중등국 예배</div>
-          <h3 id="middleVideoTitle">갇힌 것이 세계 정복</h3>
-          <p id="middleVideoScripture">빌립보서 3:1-21</p>
-          <a class="message-video-link" id="middleVideoLink" href="https://www.youtube.com/watch?v=oyAiIonVKRg" target="_blank" rel="noopener">중등국 영상 보기</a>
+          <h3 id="middleVideoTitle">이번 주 링크 미등록</h3>
+          <p id="middleVideoScripture"></p>
+          <a class="message-video-link" id="middleVideoLink" href="#" target="_blank" rel="noopener">중등국 영상 보기</a>
         </article>
 
-        <article class="message-video-card">
+        <article class="message-video-card" id="highVideoCard" hidden>
           <div class="message-video-service">고등국 예배</div>
-          <h3 id="highVideoTitle">갇힌 것이 세계 정복 - 배경 300%</h3>
-          <p id="highVideoScripture">2026년 8월 23일</p>
-          <a class="message-video-link" id="highVideoLink" href="https://www.youtube.com/watch?v=61PDyTO50FE" target="_blank" rel="noopener">고등국 영상 보기</a>
+          <h3 id="highVideoTitle">이번 주 링크 미등록</h3>
+          <p id="highVideoScripture"></p>
+          <a class="message-video-link" id="highVideoLink" href="#" target="_blank" rel="noopener">고등국 영상 보기</a>
         </article>
       </div>
     </section>
@@ -1585,36 +1585,36 @@
     </section>
 
     <p class="admin-entry"><a href="admin.html">관리자</a></p>
-    <p class="footer-note">AI가 하나님의 뜻을 알려주는 페이지가 아닙니다.<br>이번 주 강단 말씀을 기억하고 기도를 이어가도록 돕는 도구입니다.<br><small>PRAY ON v25 · 2026.08.23</small></p>
+    <p class="footer-note">AI가 하나님의 뜻을 알려주는 페이지가 아닙니다.<br>이번 주 강단 말씀을 기억하고 기도를 이어가도록 돕는 도구입니다.<br><small>PRAY ON v26 · 2026.08.30</small></p>
   </div>
 
   <nav class="bottom four-nav">
     <button class="nav active" data-target="word">이번 주 말씀</button>
-    <button class="nav" data-target="journal">나의 기록</button>
+    <button class="nav" id="journalNavBtn" data-target="journal" hidden>나의 기록</button>
     <button class="nav" data-target="pray">기도하기</button>
     <button class="nav" data-target="box">기도함</button>
   </nav>
 </main>
 
 <script>
-const CURRENT_WEEK_DATE = "2026-08-23";
+const CURRENT_WEEK_DATE = "2026-08-30";
 
 const messages = [
   {
     service:"주일 1부 예배",
-    title:"모세의 망대",
-    scripture:"출애굽기 2:1-10",
+    title:"그날의 아침",
+    scripture:"출애굽기 12:12",
     image:"assets/weekly_prayer_bg_20260823.png",
-    key:"하나님은 모세의 시작부터 생명을 지키시고 길을 준비하셨습니다.",
-    official:"하나님, 눈에 보이지 않아도 제 삶을 인도하시는 하나님의 손길을 믿고 오늘의 자리에서 믿음으로 서게 해 주세요."
+    key:"정확한 언약은 반드시 성취되고, 그날은 운명과 능력과 미래를 바꾸는 시작이 됩니다.",
+    official:"하나님, 그리스도 안에서 해방된 하나님의 자녀라는 신분을 붙잡고 오늘의 삶과 능력과 미래를 말씀으로 새롭게 시작하게 해 주세요."
   },
   {
     service:"주일 2부 예배",
-    title:"바로 왕에게 고하라",
-    scripture:"출애굽기 3:1-18",
+    title:"처음 주신 성전",
+    scripture:"출애굽기 23:14-17",
     image:"assets/weekly_prayer_bg_20260823.png",
-    key:"하나님은 모세를 부르시고 '내가 너와 함께 있으리라'고 말씀하셨습니다.",
-    official:"하나님, 제 힘보다 함께하시는 하나님을 믿고 맡기신 현장과 사람 앞에 믿음으로 서게 해 주세요."
+    key:"내 안의 망대, 내 앞의 보좌의 여정, 길에 준비된 보좌의 이정표를 누려요.",
+    official:"하나님, 주신 언약을 내 안에 망대로 세우고 예배 속에서 보좌의 능력과 길과 미래를 누리게 해 주세요."
   }
 ];
 
@@ -1642,45 +1642,45 @@ renderWeeklyMessage();
 const dailyCards = [
   {
     day:"SUNDAY PRAYER",
-    main:"문제를 피하지 말고\n말씀 속에서 답을 찾아요",
-    sub:"하나님은 어려움까지도 평생의 응답으로 바꾸실 수 있어요.",
-    prayer:"하나님, 문제를 피하려고만 하지 않고 말씀을 붙잡고 그 속으로 들어가게 해 주세요. 오늘의 어려움 속에 숨겨진 하나님의 답을 발견하게 해 주세요."
+    main:"정확한 언약을 붙잡고\n새로운 한 주를 시작해요",
+    sub:"하나님이 주신 것을 누릴 때 길과 미래가 보입니다.",
+    prayer:"하나님, 그리스도 안에서 해방된 하나님의 자녀라는 신분을 붙잡고 이번 주를 시작하게 해 주세요."
   },
   {
     day:"MONDAY PRAYER",
-    main:"아침에 모든 것을\n기도로 바꾸어요",
-    sub:"걱정부터 시작하지 말고, 하나님과 함께 하루를 시작해요.",
-    prayer:"하나님, 오늘 아침 제 걱정과 계획을 모두 기도로 바꾸게 해 주세요. 학교에 가기 전에 먼저 영적인 힘을 얻고 하루를 시작하게 해 주세요."
+    main:"현실과 내 생각에서\n자유롭게 시작해요",
+    sub:"정확한 언약은 반드시 성취됩니다.",
+    prayer:"하나님, 애굽 같은 현실과 제 생각에 묶이지 않고 말씀을 붙잡게 해 주세요."
   },
   {
     day:"TUESDAY PRAYER",
-    main:"낮에는 응답을\n확인하며 걸어요",
-    sub:"만남과 사건 속에서 하나님이 준비하신 축복을 찾아보아요.",
-    prayer:"하나님, 오늘 만나는 사람과 일 속에서 하나님의 축복을 보게 해 주세요. 작은 만남도 우연으로 지나치지 않고 살리는 눈을 갖게 해 주세요."
+    main:"내 안에 망대를 세우고\n오늘의 길을 보아요",
+    sub:"보좌의 여정과 이정표를 누려요.",
+    prayer:"하나님, 제 안에 말씀의 망대를 세우고 오늘 여시는 길을 보게 해 주세요."
   },
   {
     day:"WEDNESDAY PRAYER",
-    main:"밤에는 나의 미래를\n말씀으로 준비해요",
-    sub:"말씀·기도·증거가 작품이 되도록 오늘을 정리해요.",
-    prayer:"하나님, 오늘 하루를 말씀 안에서 돌아보게 해 주세요. 부족했던 것은 다시 설계하고, 받은 응답은 마음에 저장하며 미래를 준비하게 해 주세요."
+    main:"운명·능력·미래를\n하나님의 것으로 바꾸어요",
+    sub:"유월절·오순절·수장절의 언약을 기억해요.",
+    prayer:"하나님, 제 신분과 능력과 미래를 말씀 안에서 새롭게 보게 해 주세요."
   },
   {
     day:"THURSDAY PRAYER",
-    main:"고민거리 속에도\n최고의 미래가 있어요",
-    sub:"지금의 어려움 때문에 포기하지 말고 하나님이 주실 답을 기다려요.",
-    prayer:"하나님, 고민거리만 보며 낙심하지 않게 해 주세요. 이 문제 속에도 하나님이 준비하신 미래가 있음을 믿고 끝까지 말씀을 붙잡게 해 주세요."
+    main:"예배 속에서 보좌의 능력을\n오늘의 삶에 연결해요",
+    sub:"믿음의 발자취를 남겨요.",
+    prayer:"하나님, 예배에서 받은 힘으로 사람과 현장과 후대를 살리는 발자취를 남기게 해 주세요."
   },
   {
     day:"FRIDAY PRAYER",
-    main:"억울하고 힘들 때에도\n담대하게 걸어요",
-    sub:"바울에게 말씀하신 것처럼 하나님은 나의 다음 길을 알고 계세요.",
-    prayer:"하나님, 억울하고 힘든 순간에도 두려움에 멈추지 않게 해 주세요. 하나님이 준비하신 다음 길을 믿고 담대하게 오늘을 살아가게 해 주세요."
+    main:"아침은 회복, 낮은 길,\n밤은 작품으로 남겨요",
+    sub:"삶 자체를 기도로 누려요.",
+    prayer:"하나님, 오늘의 모든 순간을 기도로 바꾸고 제 삶에 말씀의 작품을 남기게 해 주세요."
   },
   {
     day:"SATURDAY PRAYER",
-    main:"도망가지 말고\n그 속으로 한 걸음",
-    sub:"바울처럼 어려움 속에서 하나님이 주시는 평생의 답을 찾아요.",
-    prayer:"하나님, 제가 피하고 싶은 문제 앞에서 도망가지 않게 해 주세요. 바울처럼 그 속에서 기도하며 하나님이 주시는 평생의 답을 찾게 해 주세요."
+    main:"하나님이 나를 부르신 이유를\n찾고 집중해요",
+    sub:"작은 시작을 지속해요.",
+    prayer:"하나님, 제게 맡기신 한 가지를 발견하고 다음 한 주에도 흔들리지 않고 이어가게 해 주세요."
   }
 ];
 
@@ -1689,48 +1689,43 @@ let activeDailyPrayer = daily.prayer;
 if (dailyPrayerEl) dailyPrayerEl.textContent = activeDailyPrayer;
 
 let prayers = {
-  worry:`하나님, 지금 제 마음에 걱정과 불안이 있습니다.
-이 문제를 피하려고만 하지 않고, 말씀을 붙잡고 그 속에서 하나님의 답을 찾게 해 주세요.
-오늘 해야 할 한 가지를 차분히 감당하고, 두려움보다 하나님을 더 크게 바라보게 해 주세요.
+  worry:`하나님, 지금 제 마음의 걱정보다 그리스도 안에서 해방된 하나님의 자녀라는 신분을 더 크게 보게 해 주세요.
+내 생각과 사람의 생각에 갇히지 않고 말씀을 붙잡게 해 주세요.
+오늘 제 앞에 여시는 보좌의 여정을 보게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`,
-  hurt:`하나님, 지금 제 마음이 아프고 속상합니다.
-상처를 외면하거나 숨기기보다 하나님 앞에 솔직히 내려놓게 해 주세요.
-이 시간을 통해 저를 치유하시고, 다른 사람을 이해하고 살리는 힘으로 바꾸어 주세요.
+  hurt:`하나님, 마음이 아픈 순간에도 정확한 언약은 반드시 성취됨을 믿게 해 주세요.
+상처에 묶이지 않고 제 안에 말씀과 기도의 망대를 세우게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`,
-  anger:`하나님, 지금 제 안에 화가 있습니다.
-감정대로 말하거나 행동하지 않고 잠시 멈추어 말씀을 기억하게 해 주세요.
-문제에서 도망가거나 상대를 공격하지 않고, 하나님이 원하시는 방법으로 풀어가게 해 주세요.
+  anger:`하나님, 감정과 사람의 말에 붙잡히지 않게 해 주세요.
+제 생각에서 빠져나와 말씀으로 반응하고, 오늘의 만남에 믿음의 발자취를 남기게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`,
-  courage:`하나님, 해야 할 일을 알지만 용기가 부족합니다.
-절대 불가능처럼 보여도 하나님이 주시는 힘으로 한 걸음 들어가게 해 주세요.
-이 문제 속에서 평생의 답과 새로운 시작을 발견하게 해 주세요.
+  courage:`하나님, 유월절의 해방과 오순절의 능력과 수장절의 배경을 제 언약으로 붙잡게 해 주세요.
+제가 해야 할 한 걸음을 담대히 시작하게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`,
-  thanks:`하나님, 오늘 감사할 일을 주셔서 감사합니다.
-좋은 일뿐 아니라 어려움 속에서도 저를 인도하신 것을 기억하게 해 주세요.
-받은 힘과 기쁨을 친구와 나누고 사람을 살리는 선택을 하게 해 주세요.
+  thanks:`하나님, 오늘 주신 삶과 예배와 말씀에 감사합니다.
+아침의 회복과 낮의 길과 밤의 작품을 누리며 작은 응답도 감사로 기록하게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`,
-  friend:`하나님, 제 친구와 학교를 위해 기도합니다.
-친구들의 문제를 판단하거나 피하지 않고 먼저 듣고 이해하게 해 주세요.
-우리 학교에 말씀의 망대가 세워지고, 제가 사람을 살리는 작은 시작이 되게 해 주세요.
+  friend:`하나님, 제 친구와 현장을 위해 기도합니다.
+우리 안에 복음의 망대가 세워지고, 서로의 삶에 사람을 살리는 믿음의 발자취가 남게 해 주세요.
 예수 그리스도 이름으로 기도합니다. 아멘.`
 };
 
 
 const fallbackWeeklyDetails = {
-  first_title:"모세의 망대",
-  first_scripture:"출애굽기 2:1-10",
-  first_youtube_url:"https://www.youtube.com/watch?v=irH96PSrBy4",
-  second_title:"바로 왕에게 고하라",
-  second_scripture:"출애굽기 3:1-18",
-  second_youtube_url:"https://www.youtube.com/watch?v=i_BqOTLLb3M",
-  middle_title:"갇힌 것이 세계 정복",
-  middle_scripture:"빌립보서 3:1-21",
-  middle_youtube_url:"https://www.youtube.com/watch?v=oyAiIonVKRg",
-  high_title:"갇힌 것이 세계 정복 - 배경 300%",
-  high_scripture:"2026년 8월 23일",
-  high_youtube_url:"https://www.youtube.com/watch?v=61PDyTO50FE",
-  first_pdf_url:"assets/20260823_1ST_Garo_KR.pdf",
-  second_pdf_url:"assets/20260823_2ND_Garo_KR.pdf"
+  first_title:"그날의 아침",
+  first_scripture:"출애굽기 12:12",
+  first_youtube_url:"https://www.youtube.com/watch?v=5BrkWcTuVRw",
+  second_title:"처음 주신 성전",
+  second_scripture:"출애굽기 23:14-17",
+  second_youtube_url:"https://www.youtube.com/watch?v=YrKqCidT6HA",
+  middle_title:"",
+  middle_scripture:"",
+  middle_youtube_url:"",
+  high_title:"",
+  high_scripture:"",
+  high_youtube_url:"",
+  first_pdf_url:"assets/20260830_1ST_Garo_KR.pdf",
+  second_pdf_url:"assets/20260830_2ND_Garo_KR.pdf"
 };
 
 let weeklyDetails = { ...fallbackWeeklyDetails };
@@ -1740,50 +1735,50 @@ let weeklyDailyCards = {
     day:"SUNDAY",
     heading:"이번 주 말씀을 예배로 시작해요",
     source:"주일 1부·2부 말씀 · 전체 말씀 중",
-    excerpt:"위기는 하나님의 기회가 되고,\n언약을 잡을 때 하나님의 계획이 보입니다.",
-    prayer:"하나님, 이번 주 말씀 속에서 문제와 위기를 하나님의 시선으로 보게 해 주세요. 함께하시는 언약을 붙잡고 한 주를 시작하게 해 주세요."
+    excerpt:"정확한 언약은 반드시 성취되고,\n하나님이 주신 것을 누릴 때 길과 미래가 보입니다.",
+    prayer:"하나님, 이번 주 말씀 속에서 해방된 하나님의 자녀라는 신분을 붙잡고, 내 안의 망대와 보좌의 여정과 이정표를 누리게 해 주세요."
   },
   1:{
     day:"MONDAY",
     heading:"1부 서론을 붙잡아요",
     source:"주일 1부 말씀 · 서론 말씀 중",
-    excerpt:"위기를 당연·필연·절대로 보면\n하나님의 기회와 계획이 보입니다.",
-    prayer:"하나님, 문제와 위기 앞에서 당황하거나 포기하지 않고 당연·필연·절대의 눈으로 보게 해 주세요. 제게 하시고자 하는 일을 발견하게 해 주세요."
+    excerpt:"애굽 같은 현실을 넘어서고,\n내 생각과 사람의 생각에서도 나와야 합니다.",
+    prayer:"하나님, 눈에 보이는 현실과 제 생각에 매이지 않고 그리스도 안에서 해방된 하나님의 자녀임을 믿게 해 주세요. 정확한 언약을 오늘 제 마음에 심게 해 주세요."
   },
   2:{
     day:"TUESDAY",
     heading:"2부 서론을 붙잡아요",
     source:"주일 2부 말씀 · 서론 말씀 중",
-    excerpt:"포기한 모세에게 하나님이 말씀하셨어요.\n“내가 반드시 너와 함께 있으리라.”",
-    prayer:"하나님, 제 나이와 조건과 부족함보다 함께하시는 언약을 더 크게 보게 해 주세요. 포기한 자리에서도 말씀을 붙잡고 다시 시작하게 해 주세요."
+    excerpt:"내 안에 망대, 내 앞에 보좌의 여정,\n가는 길에는 보좌의 이정표가 있습니다.",
+    prayer:"하나님, 7·7·7 언약으로 제 안에 망대를 세우게 해 주세요. 오늘 제 앞에 여시는 길과 그 길에 준비된 미래를 말씀으로 보게 해 주세요."
   },
   3:{
     day:"WEDNESDAY",
     heading:"1부 본론을 붙잡아요",
     source:"주일 1부 말씀 · 본론 말씀 중",
-    excerpt:"영적 준비 300% · 미래 현장 준비 300% ·\n전도와 선교 300%를 준비해요.",
-    prayer:"하나님, 제 안에 복음과 말씀과 기도의 망대가 서게 해 주세요. 오늘의 공부와 일과 현장을 미래를 살리는 준비로 연결하게 해 주세요."
+    excerpt:"유월절은 운명을, 오순절은 능력을,\n수장절은 배경과 미래를 바꾸는 시작입니다.",
+    prayer:"하나님, 제 운명과 신분은 그리스도 안에서 해방되었음을 믿습니다. 제 능력을 하나님의 것으로 바꾸고, 보좌의 배경 속에서 미래를 바라보게 해 주세요."
   },
   4:{
     day:"THURSDAY",
     heading:"2부 본론을 붙잡아요",
     source:"주일 2부 말씀 · 본론 말씀 중",
-    excerpt:"유월절의 능력으로 출애굽하고,\n오순절의 능력으로 광야를 지나며,\n수장절의 축복으로 가나안을 바라봐요.",
-    prayer:"하나님, 복음의 능력으로 속박에서 벗어나고 성령의 능력으로 오늘의 광야를 지나게 해 주세요. 이미 준비하신 미래를 믿음으로 바라보게 해 주세요."
+    excerpt:"보좌의 능력을 누리는 예배,\n보좌의 백성이 남기는 발자취,\n후대와 세계를 살리는 성전을 준비해요.",
+    prayer:"하나님, 예배 속에서 보좌의 능력을 누리고 제 삶에 믿음의 발자취를 남기게 해 주세요. 다음 세대와 세계에 복음을 전하는 일에 제 삶이 쓰임 받게 해 주세요."
   },
   5:{
     day:"FRIDAY",
     heading:"1부 결론을 붙잡아요",
     source:"주일 1부 말씀 · 결론 말씀 중",
-    excerpt:"말씀이 영혼과 보좌에 연결될 때\n막을 수 없는 성취가 시작됩니다.",
-    prayer:"하나님, 제 안에 심긴 언약의 망대가 흔들리지 않게 해 주세요. 말씀을 제 영혼에 깊이 담고 하나님의 시간표 속에서 성취를 기다리게 해 주세요."
+    excerpt:"아침에는 모든 것을 회복하고,\n낮에는 길을 보고, 밤에는 300% 작품을 남겨요.",
+    prayer:"하나님, 오늘 아침 확신으로 시작하고 낮에는 주신 길을 보며 밤에는 하루를 말씀 안에서 정리하게 해 주세요. 제 삶 자체가 기도가 되게 해 주세요."
   },
   6:{
     day:"SATURDAY",
     heading:"2부 결론을 붙잡아요",
     source:"주일 2부 말씀 · 결론 말씀 중",
-    excerpt:"하나님의 계획은 바뀌지 않습니다.\n두려워하지 말고 영적 힘을 길러요.",
-    prayer:"하나님, 가는 길의 홍해와 요단과 여리고를 두려워하지 않게 해 주세요. 이미 준비하신 하나님의 계획을 믿고 영적 힘을 길러 다음 주를 맞게 해 주세요."
+    excerpt:"삶의 기도, 예배의 다섯 길,\n그리고 하나님이 부르신 이유를 찾는 특별 집중을 시작해요.",
+    prayer:"하나님, 일상 속 기도를 지속하고 예배에서 말씀 성취와 기도 응답을 확인하게 해 주세요. 제게 맡기신 한 가지를 발견하고 집중하는 새로운 시작을 하게 해 주세요."
   }
 };
 
@@ -1830,6 +1825,11 @@ function renderMessageLinks(){
     const el=document.getElementById(id);
     if(el && value) el.href=value;
   });
+
+  const middleCard=document.getElementById("middleVideoCard");
+  const highCard=document.getElementById("highVideoCard");
+  if(middleCard) middleCard.hidden=!weeklyDetails.middle_youtube_url;
+  if(highCard) highCard.hidden=!weeklyDetails.high_youtube_url;
 }
 
 renderDailyWeeklyCard();
@@ -2984,6 +2984,43 @@ document.querySelectorAll(".nav").forEach(btn=>{
     if(data.session?.user) showLoggedIn(data.session.user);
     else showLoggedOut();
   });
+})();
+</script>
+
+
+<script>
+(function(){
+  const journal=document.getElementById("journal");
+  const journalNav=document.getElementById("journalNavBtn");
+  const bottom=document.querySelector(".bottom");
+  const cfg=window.PRAYON_SUPABASE || {};
+
+  function applyJournalVisibility(enabled){
+    if(journal) journal.hidden=!enabled;
+    if(journalNav) journalNav.hidden=!enabled;
+    if(bottom) bottom.classList.toggle("four-nav", Boolean(enabled));
+  }
+
+  // 캠프 운영용 기본값: 개인 기록공간 숨김.
+  applyJournalVisibility(false);
+
+  if(!cfg.url || !cfg.publishableKey) return;
+  const base=String(cfg.url).replace(/\/+$/,"");
+
+  fetch(base + "/rest/v1/prayon_settings?id=eq.1&select=journal_enabled",{
+    headers:{
+      apikey:cfg.publishableKey,
+      Authorization:"Bearer " + cfg.publishableKey,
+      Accept:"application/json"
+    }
+  })
+  .then(r=>r.ok?r.json():[])
+  .then(rows=>{
+    if(Array.isArray(rows) && rows[0]){
+      applyJournalVisibility(rows[0].journal_enabled === true);
+    }
+  })
+  .catch(()=>{});
 })();
 </script>
 
